@@ -1,0 +1,91 @@
+@import '../../styles/variables';
+
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 1002;
+
+    height: 100vh;
+    width: 100vw;
+
+    background: $background_dark;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .text-wrapper {
+        overflow: hidden;
+        height: 20px;
+        
+        .loading-text {
+            
+            font-family: 'Rubik';
+            font-size: 14px;
+            font-weight: 300;
+            color: $text_white_80;
+            
+            height: 20px;
+            margin: 0;
+            text-align: end;
+    
+            // font-family: 'Bosch';
+            font-size: 25px;
+            font-size: medium;
+            line-height: 20px;
+        }
+    }
+
+    .loading-line-wrapper {
+        width: 6vw;
+        min-width: 80px;
+        max-width: 100px;
+
+        transform-origin: right;
+
+        .loading-line {
+            height: $underline-height;
+            width: 100%;
+
+            position: relative;
+
+            background-color: text_color(255, 0.2);
+
+            span {
+                position: absolute;
+                inset: 0;
+
+                background-color: text_color(255, 0.6);
+                transform-origin: left;
+
+                transform: scaleX(0);
+            }
+        }
+    }
+
+    .line-wrapper {
+        overflow: hidden;
+    }
+
+    .line {
+        pointer-events: none;
+        fill: none;
+        stroke: $text_white_80;
+        stroke-width: 1px;
+    }
+    
+    .line-slide {
+        top: -3px;
+        stroke-width: 4px;
+        animation: lineAnimation 1.24s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+    }
+}
+
+@keyframes lineAnimation {
+    from { transform: translate3d(-66.6%, 0, 0) }
+}
+
+@keyframes verticalMovementToNext {
+    0% { transform: translateY(0px) }
+    100% { transform: translateY(-40px) }
+}

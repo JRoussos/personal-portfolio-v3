@@ -1,0 +1,17 @@
+$underline-height: 1px;
+$title-size: 180px;
+
+// COLORS
+$background_white: #f5f2f2; //#e7e1e1
+$background_dark: #121212;
+
+$text_white_80: rgba( 255, 255, 255, 0.8); //rgba( 255, 255, 255, 0.8);
+$text_white_60: rgba( 255, 255, 255, 0.6); //rgba( 255, 255, 255, 0.8);
+$text_white_20: rgba( 255, 255, 255, 0.2); //rgba( 255, 255, 255, 0.8);
+
+$text_black_80: rgba( 0, 0, 0, 0.8);
+$text_black_60: rgba( 0, 0, 0, 0.6);
+
+@function text_color($color, $opacity) {
+    @return rgba($color, $color, $color, $opacity);
+}

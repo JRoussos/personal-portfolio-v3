@@ -1,0 +1,186 @@
+@import '../../styles/variables';
+
+.about {
+    transform: translateY(5vh);
+    margin-bottom: 5vh;
+
+    .animate {
+        opacity: 0;
+        will-change: opacity;
+    }
+
+    .title-wrapper {
+        width: 100%;
+        // border-bottom: 1px solid $text_black_80;
+
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        h1 {
+            font-family: 'Saunde';
+            font-size: clamp(35px, 9vw, 160px);
+            line-height: clamp(45px, 9vw, 140px);
+
+            // transform: scaleY(1.2);
+    
+            color: text_color(0, 0.8);
+            
+            // margin: 0 1vw;
+            // font-weight: 600;
+            font-family: 'Rubik';
+            font-size: 18px;
+            line-height: normal;
+            font-weight: 400;
+
+            margin: 10px 0;
+        }
+
+        a {
+            font-family: 'Rubik';
+            font-size: clamp(16px, 4vw, 18px);
+            font-weight: 400;
+
+            margin: 10px 0;
+            margin: 0 -10px 0 0;
+            color: $text_black_80;
+
+            outline: none;
+            text-decoration: none;
+
+            // border-bottom: 2px $text_black_40 solid;
+        }
+    }
+
+    .horizontal-line {
+        width: 100%;
+        height: 1px;
+        
+        background: $text_black_80;
+
+        margin-bottom: 1em;
+
+        // transform: scaleX(0);
+        // transform-origin: left;
+    }
+
+    svg {
+        // overflow: visible;
+        width: 100%;
+
+        text {
+            font-family: 'Italiana';
+            // font-weight: 600;
+
+            fill: text-color(0, 0.8);
+            transform: scaleY(1.1);
+        }
+    }
+
+    .pre-grid {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        position: relative;
+        width: 100%;
+    }
+
+    .grid {
+        position: relative;
+
+        display: flex;
+        flex-direction: row;
+
+        margin-top: 1em;
+        width: 100%;
+
+        &:nth-child(2) {
+            // background: $background_dark;
+            // flex: 1 ;
+            // justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .contact-wrapper {
+            margin-top: 3em;
+
+            .flex-container { 
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 10px;
+
+                max-width: 575px;
+            }
+        }
+        
+  
+        .paragraph-wrapper {
+            justify-self: end;
+            width: 100%;
+
+            margin-bottom: 30px;
+
+            &:not(:first-child) {
+                margin-bottom: 50px;
+            }
+
+            h1 {
+                font-family: 'Italiana';
+                font-size: 201px;
+                font-weight: 400;
+
+                color: $text_black_80;
+                margin: 0;
+                
+                white-space: nowrap;
+                letter-spacing: -0.521vw;
+            }
+    
+            p, a {
+                font-family: 'Rubik';
+                font-size: 14px;
+                font-weight: 400;
+
+                max-width: 475px;
+            
+                color: text_color(0, 0.8);
+                width: auto;
+
+                span {
+                    display: inline-block;
+                }
+            }
+            
+            .bolder {
+                font-size: 16px;
+                color: text-color(0, 0.9);
+            }
+        }
+
+        .image-container {
+            width: 100%;
+            height: 100%;
+
+            // transform: translateY(1px);
+            overflow: hidden;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+
+            img {
+                object-fit: cover;
+                object-position: bottom;
+
+                aspect-ratio: 2.3;
+                
+                width: 100%;
+                // height: 100vw;
+                // max-height: 650px;
+
+                filter: brightness(0.8) saturate(0.7); // brightness(0.8) grayscale(1);
+            }
+        }
+    }
+}

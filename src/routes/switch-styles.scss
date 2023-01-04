@@ -1,0 +1,15 @@
+.default-state {
+    width: min(90%, 1500px);
+    // opacity: 0;
+    // animation: default 0.3s forwards;
+}
+
+.fadeIn {
+    opacity: 0;
+    animation: fadeIn 0.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) 0.5s forwards;
+}
+
+.fadeOut {
+    opacity: 1;
+    animation: fadeOut 1.0s cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards;
+}

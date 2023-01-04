@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+
+.marquee-container {
+    width: 100vw;
+    overflow: hidden;
+
+    .marquee {
+        display: flex;
+        
+        width: fit-content;
+        will-change: transform;
+
+        h1 {
+            font-family: 'Italiana';
+            font-size: clamp(80px, 11vw, 11vw);
+            font-weight: 400;
+
+            color: $text_black_80;
+            text-transform: uppercase;
+            
+            white-space: nowrap;
+
+            margin: 5vh 0;
+        }
+    }
+}

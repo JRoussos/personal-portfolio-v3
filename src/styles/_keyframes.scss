@@ -1,0 +1,61 @@
+@keyframes fadeIn {
+    0%   { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@keyframes fadeOut {
+    0%   { opacity: 1 }
+    100% { opacity: 0 }
+}
+
+@keyframes fadeOutWithTranslate {
+    0%   { opacity: 1; transform: translate3d(0, 0, 0) }
+    100% { opacity: 0; transform: perspective(500px) translate3d(0, -25px, -2px ) }
+}
+
+@keyframes fade_in_noise {
+    0%   { opacity: 0 }
+    100% { opacity: 0.06 }
+}
+
+@keyframes make-noise {
+    0%   { transform: translate( 20%, -15%) }
+    10%  { transform: translate(-20%, -10%) }
+    20%  { transform: translate( 20%, -05%) }
+    30%  { transform: translate(-20%,  05%) }
+    40%  { transform: translate( 20%,  10%) }
+    50%  { transform: translate(-20%,  15%) }
+    60%  { transform: translate( 20%,  15%) }  
+    70%  { transform: translate(-20%,  10%) }
+    80%  { transform: translate( 20%,  05%) }
+    90%  { transform: translate(-20%,  -5%) }
+    100% { transform: translate( 20%, -15%) }
+}
+
+@-webkit-keyframes noise-animation {
+      0% { transform: translate(0, 0) }
+     10% { transform: translate(-5vw, -5vh) }
+     20% { transform: translate(-10vw, 5vh) }
+     30% { transform: translate(5vw, -10vh) }
+     40% { transform: translate(-5vw, 15vh) }
+     50% { transform: translate(-10vw, 5vh) }
+     60% { transform: translate(15vw, 0vh) }
+     70% { transform: translate(0vw, 10vh) }
+     80% { transform: translate(-15vw, 0vh) }
+     90% { transform: translate(10vw, 5vh) }
+    100% { transform: translate(5vw, 0vh) }
+}
+
+@keyframes noise-animation {
+      0% { transform: translate(0, 0) }
+     10% { transform: translate(-5vw, -5vh) }
+     20% { transform: translate(-10vw, 5vh) }
+     30% { transform: translate(5vw, -10vh) }
+     40% { transform: translate(-5vw, 15vh) }
+     50% { transform: translate(-10vw, 5vh) }
+     60% { transform: translate(15vw, 0vh) }
+     70% { transform: translate(0vw, 10vh) }
+     80% { transform: translate(-15vw, 0vh) }
+     90% { transform: translate(10vw, 5vh) }
+    100% { transform: translate(5vw, 0vh) }
+}

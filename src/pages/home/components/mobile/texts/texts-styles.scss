@@ -1,0 +1,77 @@
+@import '../../../../../styles/variables';
+
+.texts-titles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    z-index: 2;
+    pointer-events: none;
+
+    height: 100%;
+    width: 100%;
+    
+    opacity: 0;
+
+    // display: flex;
+    // align-items: flex-start;
+    // justify-content: center;
+    // flex-direction: column;
+
+    .text-wrapper {
+        margin: 0 5%;
+
+        h1 {
+            font-family: 'Saunde';
+            font-size: clamp(50px, 9vw, 160px);
+            font-weight: 600;
+    
+            color: $text_white_60;
+    
+            text-transform: uppercase;
+            transform: scaleY(1.5);
+    
+            margin: 0;
+    
+            opacity: 0.1;
+    
+            span {
+                display: inline-block;
+                width: 15px;
+                padding-left: 10px;
+    
+                font-family: 'Rubik';
+                font-size: x-small;
+                font-weight: 400;
+                letter-spacing: 1px;
+    
+                transform: scaleY(0.8);
+            }
+        }
+    }
+    
+    // p {
+    //     position: fixed;
+
+    //     color: $text_white_60;
+    //     font-family: 'Rubik';
+    //     font-size: small;
+
+    //     margin: 10px 0;
+    //     padding: 0 0 0 2px;
+    //     line-height: 20px;
+
+    //     width: 95%;
+
+    //     &::after {
+    //         content: "";
+    //         display: block;
+
+    //         width: 20%;
+    //         height: 2px;
+
+    //         background: $text_white_60;
+    //         margin-top: 1em;                        
+    //     }
+    // }
+}

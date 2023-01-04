@@ -1,0 +1,37 @@
+.rolling-text {
+    p, a {
+        // height: 20px;
+        // font-size: 14px !important;
+        // margin: 4px 0 0 0;        
+
+        a {
+            display: inline-flex;
+            text-decoration: underline;
+
+            &:hover .arrow {
+                transform: translate3d(10px, 0, 0);
+            }
+
+                
+            .arrow {
+                display: inline-block; 
+                will-change: transform;
+
+                transition: transform 0.2s ease-in-out;
+
+                svg {
+                    height: auto; 
+                    width: 13px; 
+                    
+                    transform: translateY(2px) scale(0.8);
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+.contact-wrapper .rolling-text p {
+    // margin: 4px 0 0 0;
+    margin: 0;
+}

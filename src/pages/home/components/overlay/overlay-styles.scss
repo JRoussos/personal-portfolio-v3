@@ -1,0 +1,112 @@
+@import '../../../../styles/variables';
+
+.text-overlay {
+    position: fixed;
+    z-index: 2;
+    opacity: 0;
+
+    height: 100%;
+    width: 100%;
+
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    
+    flex-direction: column;
+
+    pointer-events: none;
+
+    a {
+        pointer-events: all;
+        cursor: pointer;
+    
+        text-decoration: underline;
+        color: $text_white_80;
+    }
+    
+    .title-container {
+        position: relative;
+
+        height: $title-size;
+        width: calc(100% + 30px);
+
+        h1 {
+            color: text-color(235, 0.9);
+
+            font-family: 'Italiana';
+            font-size: clamp(80px, 10vw, $title-size);
+            font-weight: 400;
+
+            letter-spacing: -0.521vw;
+            line-height: $title-size;
+
+            white-space: nowrap;
+            
+            margin: 0;
+            padding: 10px 0;
+            text-transform: uppercase;
+            opacity: 0;
+
+            // text-shadow: 0 2px 20px text-color(0,0.2);
+
+            will-change: transform, opacity;
+
+            // display: flex;
+            // flex-direction: row;
+            // align-items: flex-start;
+
+            &::before, &::after {
+                content: attr(data-indx)'.';
+ 
+                width: 15px;
+                padding: 0 10px;
+    
+                font-family: 'Rubik';
+                font-size: x-small;
+                font-weight: 400;
+                line-height: initial;
+                letter-spacing: 1px;
+            }
+
+            &::before {
+                display: inline-block;
+            }
+            
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    .subtitle-container {
+        position: relative;
+        
+        margin-top: 5px;
+        width: fit-content;
+        left: 5%;
+        
+        overflow: hidden;
+        
+        .subtitle {
+            position: fixed;
+
+            color: $text_white_60;
+            font-family: 'Rubik';
+            font-size: 14px;
+
+            margin: 10px 0;
+            line-height: 20px;
+
+            visibility: hidden;
+            will-change: opacity;
+        }
+
+        .visible {
+            visibility: visible;
+        }
+    }
+
+}

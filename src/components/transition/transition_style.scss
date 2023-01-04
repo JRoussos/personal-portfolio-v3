@@ -1,0 +1,18 @@
+.transition {
+    svg {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+
+        // background: transparent;
+        width: 100vw;
+        height: 100vh;
+        
+        pointer-events: none;
+        // will-change: contents;
+
+        path {
+            will-change: d;
+        }
+    }
+}

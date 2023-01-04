@@ -1,0 +1,127 @@
+@import '../../../../styles/variables';
+
+.mobile {
+    margin: 0 -5%;
+    
+    height: 100%;
+    height: 75vh;
+
+    .images-container {
+        transform: translateY(10vh);
+        // margin-bottom: 15vh;
+
+        width: 100%;
+        overflow: hidden;
+
+        .projects-wrapper {
+            width: calc(400% + 160px);
+
+            display: flex;
+            flex-direction: row;
+
+            .project-container {
+                width: calc(100vw - 40px);
+                margin: 0 20px;
+    
+                text-decoration: none;
+                color: $text_white_80;
+    
+                position: relative;
+   
+                // border: 1px solid text-color(255, 0.1);
+                // border-radius: 8px;
+                // padding: 8px;
+
+                img {
+                    height: 40vh;
+                    width: 100%;
+        
+                    object-fit: cover;
+                    object-position: center;
+                }
+    
+                .project-info {
+                    // position: absolute;
+                    // bottom: 30%;
+    
+                    margin-top: 20px;
+    
+                    h1 {
+                        font-family: 'Saunde';
+                        font-size: clamp(50px, 9vh, 160px);
+                        font-weight: 400;
+    
+                        text-transform: uppercase;
+                        transform: scaleY(1.2);
+    
+                        margin: 0;
+    
+                        &::after {
+                            content: attr(data-indx);
+             
+                            display: inline-block;
+                            width: 15px;
+                            padding: 0 10px;
+                
+                            font-family: 'Rubik';
+                            font-size: x-small;
+                            font-weight: 400;
+                            line-height: initial;
+                            letter-spacing: 1px;
+                        }
+                    }
+    
+                    p, a {
+                        color: $text_white_60;
+                        font-family: 'Rubik';
+                        font-size: 14px;
+            
+                        margin: 10px 0;
+                        padding: 0 0 0 2px;
+                        line-height: 20px;
+    
+                        width: 100%;
+                    }
+    
+                    a::after {
+                        content: '(click)';
+                        display: inline-block;
+    
+                        padding-left: 10px;
+                        opacity: 0.85;
+                    }
+                }
+            }
+        }
+    }
+
+    .project-indicators {
+        position: absolute;
+        top: calc(50vh + 10px);
+
+        width: 100%;
+        height: 2px;
+
+        // margin: 0 20px;
+
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+        justify-content: center;
+
+        span {
+            display: block;
+            background: text-color(255, 0.1);
+            
+            height: 2px;
+            width: 60px;
+
+            margin: 0 5px;
+        }
+
+        .active {
+            background: text-color(255, 0.4);            
+        }
+    }
+}
