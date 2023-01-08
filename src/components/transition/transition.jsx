@@ -10,7 +10,7 @@ const Transition = ({ path }) => {
     const pathRef = useRef()
     const location = useLocation()
     
-    const color = path === '/' ? '#121212' : '#f5f2f2'
+    const color = path === '/' ? '#090909' : '#f5f2f2'
 
     useEffect(() => {
         const scale = value => Math.max((value - 1) / 1.5 * 40, 0)

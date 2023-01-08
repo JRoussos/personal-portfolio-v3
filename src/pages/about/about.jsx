@@ -91,7 +91,7 @@ const About = () => {
         <Topper>
             <div className='about'>
                 <div className='title-wrapper'>
-                    <h1>About</h1>
+                    <h1>ABOUT</h1>
                     <Link to={'/'} replace>
                         <BackBtn/>
                     </Link>
@@ -104,8 +104,8 @@ const About = () => {
                                 <h1>I’M JOHN</h1>
                             </div>
                             <div className='paragraph-wrapper'>
-                                <p className='bolder'>Creative developer focusing on<br/> {/* <p>{ texts[0].split(' ').map(char => <span className='word-span' key={Math.random()}>{char + '\u00A0'}</span>) }<br/> */}
-                                motion and refined digital experiences.</p>
+                                <p>Creative developer focusing on<br/> {/* <p>{ texts[0].split(' ').map(char => <span className='word-span' key={Math.random()}>{char + '\u00A0'}</span>) }<br/> */}
+                                motion and visually appealing web experiences.</p>
                             </div>
                             <div className='paragraph-wrapper'>
                                 <p>I'm a pretty outdoorsy guy who loves working out and being outside. Adventures, like mountain climbing and discovering new places, are some of my favorite. I'm also really interested in space and how it works. Wormholes, black holes, and supernovae all fascinate me. There's something inherently thrilling about discovering how things work.</p>

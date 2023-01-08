@@ -20,7 +20,7 @@
 }
 
 a:is(.underline) {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .line-hover {

@@ -27,8 +27,8 @@ const Indicators = React.forwardRef(({ number = 4, handlePointerOut, handlePoint
     //     window.addEventListener('resize', hresize)
     // }, [])
 
-    return (
-        <group ref={groupRef} visible={ width > 725 } position={[Math.min(viewport.width / 2.5, 45), -1, 0]} onPointerOver={handlePointerOver} onPointerMove={handlePointerMove} onPointerOut={handlePointerOut}>
+    return ( //width > 725
+        <group ref={groupRef} visible={ false } position={[Math.min(viewport.width / 2.5, 45), -1, 0]} onPointerOver={handlePointerOver} onPointerMove={handlePointerMove} onPointerOut={handlePointerOut}>
             {new Array(number).fill("").map((_, index) => (
                 <mesh key={index} position={[0, margin * index, 0]} dist={0} index={index}>
                     <planeGeometry attach='geometry' args={[2.7, 0.06, 1, 1]} />

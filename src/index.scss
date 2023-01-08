@@ -36,22 +36,6 @@ main {
     align-items: center;
 }
 
-// #noise {
-//     position: fixed;
-//     height: 100%;
-//     width: 100%;
-//     z-index: 1000;
-
-//     opacity: 0;
-//     pointer-events: none;
-
-//     background-image: url('./assets/imgs/grain.png');
-//     background-blend-mode: exclusion;
-//     // filter: invert(1);
-    
-//     animation: fade_in_noise 0.7s cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards;
-// }
-
 #noise {
     position: fixed;
     
@@ -83,7 +67,7 @@ main {
     height: 100%;
     width: 100%;
 
-    position: fixed;
+    // position: fixed;
     z-index: -1;
     top: 0;
     left: 0;

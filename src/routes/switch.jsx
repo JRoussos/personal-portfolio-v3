@@ -4,7 +4,7 @@ import { isMobile } from 'react-device-detect'
 
 import loadable from '@loadable/component'
 
-// import Home from '../pages/home/home'
+import Home from '../pages/home/home'
 // import About from '../pages/about/about'
 // import Project from '../pages/project/project'
 
@@ -13,7 +13,7 @@ import SmoothScroll from '../components/smoothScroll/SmoothScroll'
 
 import './switch-styles.scss'
 
-const Home = loadable(() => import('../pages/home/home'))
+// const Home = loadable(() => import('../pages/home/home'))
 const About = loadable(() => import('../pages/about/about'))
 const Project = loadable(() => import('../pages/project/project'))
 
@@ -24,7 +24,7 @@ const Switch = () => {
     const [transitionState, setTransitionState] = useState("fadeIn")
 
     const setBodyStyle= useCallback( path => {
-        document.body.style.background = path === '/' ? '#121212' : '#f5f2f2'
+        document.body.style.background = path === '/' ? '#090909' : '#f5f2f2'
         document.body.style.cursor = "auto"
     }, [])
 

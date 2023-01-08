@@ -8,9 +8,11 @@ import { useNavigate } from 'react-router-dom'
 import data from '../../../../../contexts/data'
 import { fragment, vertex } from './shaders'
 
-const Image = ({ idx, src, height, path }) => {
-    const navigate = useNavigate()
+const Image = ({ idx, src, height, path, touchProps }) => {
     const { camera } = useThree()
+    const { isDragging } = touchProps.current
+    
+    const navigate = useNavigate()
     const meshRef = useRef()
 
     const { uDelta, uSize, uTime, uTexture, uAlpha } = useMemo(() => {
@@ -29,8 +31,7 @@ const Image = ({ idx, src, height, path }) => {
         uDelta: uDelta,
         uAlpha: uAlpha, 
         uSize: uSize,
-        uTexture: uTexture,
-        // uHover: { value: 0.0 }
+        uTexture: uTexture
     }
 
     const handlePointerOver = () => {
@@ -41,6 +42,11 @@ const Image = ({ idx, src, height, path }) => {
     const handlePointerOut = () => {
         document.body.style.cursor = "auto"
         // gsap.to(uniforms.uHover, {duration: 1.2, value: 0.0, ease: 'expo.out'})
+    }
+
+    const handleClick = () => {
+        if( isDragging ) return 
+        navigate(path)
     }
 
     useEffect(() => {
@@ -66,8 +72,8 @@ const Image = ({ idx, src, height, path }) => {
     }, [])
 
     return (
-        <mesh ref={meshRef} position={[0, idx * height, 0]} 
-            onClick={() => navigate(path)} 
+        <mesh ref={meshRef} position={[0, idx * height, 0]}
+            onClick={handleClick} 
             onPointerOver={handlePointerOver}
             onPointerOut={handlePointerOut}
         >
@@ -79,7 +85,7 @@ const Image = ({ idx, src, height, path }) => {
     )
 }
 
-const Tiles = React.forwardRef(( { number = 4, tileHeight }, groupRef) => {
+const Tiles = React.forwardRef(( { number = 4, tileHeight, touchProps }, groupRef) => {
     const ts = useLoader(TextureLoader, data.map( project => {
         return project.media.picture
     }))
@@ -87,7 +93,7 @@ const Tiles = React.forwardRef(( { number = 4, tileHeight }, groupRef) => {
     return (
         <group ref={groupRef}>
             {new Array(3*number).fill("").map( (_, index) => 
-                <Image key={index} idx={index} src={ts[index%ts.length]} height={tileHeight} 
+                <Image key={index} idx={index} src={ts[index%ts.length]} height={tileHeight} touchProps={touchProps}
                     path={`/project/${data[index%ts.length].path}`}/> )}
         </group>
     )

@@ -8,16 +8,28 @@ const Marquee = ({ text }) => {
     
     const current_position = useRef(0)
     const width = useRef(0)
+
+    let then = new Date().getTime()
+    let interval = 16.667
     
     const animate = useCallback(() => {
         if (!marqueeRef.current) return
-        const { delta } = getScrollValue()
-        
-        current_position.current += 1 + Math.abs(delta)
-        if (current_position.current > width.current ) current_position.current = 0
-
-        marqueeRef.current.style.transform = `translate3d(-${current_position.current}px, 0, 0)`
         animationFrameID.current = requestAnimationFrame(animate)
+
+        let now = new Date().getTime()
+        let diff = now - then
+
+        if(diff > interval) {
+            then = now - (diff % interval)
+
+            const { delta } = getScrollValue()
+            
+            current_position.current += 1 + Math.abs(delta)
+            if (current_position.current > width.current ) current_position.current = 0
+    
+            marqueeRef.current.style.transform = `translate3d(-${current_position.current}px, 0, 0)`
+        }
+
     }, [])
 
     

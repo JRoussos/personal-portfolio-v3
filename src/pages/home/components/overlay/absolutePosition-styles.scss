@@ -11,7 +11,8 @@
 
     .header {
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: flex-end; // space-between;
 
         position: absolute;
         top: 0;
@@ -21,14 +22,14 @@
         pointer-events: none;
         // background: linear-gradient(#121212cc, transparent);
 
-        a {
+        svg, a {
             display: block;
 
             font-family: 'Rubik';
             font-size: 16px;
             font-weight: 400;
 
-            margin: 55px 5% 0 5%; 
+            margin: 40px 5%; 
 
             text-decoration: none;
 
@@ -36,34 +37,44 @@
         }
     }
 
-    .copyright {
-        position: fixed;
-        right: 0;
+    .footer {   
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        position: absolute;
         bottom: 0;
+        right: 0;
+        left: 0;
+        
+        pointer-events: none;
 
-        width: 100%;
-        // background: linear-gradient(transparent, #121212cc);
+        margin: 15px 5%;
 
-        p {
-            color: $text_white_80;
-            font-family: 'Rubik';
-            font-size: 12px;
-            font-weight: 300;
-            text-align: end;
+        // .copyright {
+            // position: fixed;
+            // right: 0;
+            // bottom: 0;
 
-            margin: 20px 5%;
+            // width: max-content;
+            // background: linear-gradient(transparent, #121212cc);
 
-            span::after {
-                content: '';
-                display: inline-block;
-                background: $text_white_60;
+            p {
+                color: $text_white_80;
+                font-family: 'Rubik';
+                font-size: 12px;
+                font-weight: 300;
+                text-align: end;
 
-                width: 100px;
-                height: 1px;
+                text-transform: uppercase;
 
-                margin: 0 5px;
-                margin-bottom: 3.5px;
+                a {
+                    margin: 0 5px;
+                }
+
+                // margin: 0 5px;
+                // margin: 45px 0;
             }
-        }
+        // }
     }
 }

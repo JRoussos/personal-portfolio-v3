@@ -20,7 +20,7 @@ import learning_3 from '../assets/imgs/projects/learning/learning (3).mp4'
 import learning_4 from '../assets/imgs/projects/learning/learning (4).jpg'
 import learning_5 from '../assets/imgs/projects/learning/learning (5).mp4'
 
-import lorenz_0 from '../assets/imgs/banners/lorenz.jpg'
+import lorenz_0 from '../assets/imgs/banners/nlorenz.png'
 import lorenz_1 from '../assets/imgs/projects/lorenz/lorenz (Custom).png'
 import lorenz_2 from '../assets/imgs/projects/lorenz/lorenz (2).png'
 import lorenz_3 from '../assets/imgs/projects/lorenz/lorenz (3).png'

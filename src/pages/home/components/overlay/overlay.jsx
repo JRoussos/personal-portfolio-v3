@@ -23,13 +23,13 @@ const TextOverlay = () => {
 
     return createPortal(
         <div className={canvasReady ? 'text-overlay fadeIn' : 'text-overlay' }>
-            <div className='data-wrapper' style={{position: 'absolute', left: '5%'}}>
+            {/* <div className='data-wrapper' style={{position: 'absolute', left: '5%'}}>
                 <div className='title-container' id='project-titles'>
                     {projects.map( (project, i) => <h1 key={project.id} data-indx={`0${4-i}`}>{project.name}</h1> )}
                     {projects.map( (project, i) => <h1 key={project.id} data-indx={`0${4-i}`}>{project.name}</h1> )}
                     {projects.map( (project, i) => <h1 key={project.id} data-indx={`0${4-i}`}>{project.name}</h1> )}
                 </div>
-            </div>
+            </div> */}
             <AbsolutePositions/>
         </div>, document.getElementById('root')
     )

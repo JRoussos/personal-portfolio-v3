@@ -78,7 +78,7 @@ const Project = () => {
                         <div key={index} className='image-layout'>
                             {layout.map( horizontal => {
                                 if(horizontal.image.slice(-1) === '4')
-                                    return <video src={horizontal.image} key={horizontal.image} autoPlay muted loop playsInline/>
+                                    return <div className='video-container'><video src={horizontal.image} key={horizontal.image} autoPlay muted loop playsInline/></div>
                                 else 
                                     return <img src={horizontal.image} key={horizontal.image} style={{width: horizontal.percentage, aspectRatio: horizontal.aspect}} /> 
                             })}
