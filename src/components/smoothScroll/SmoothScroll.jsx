@@ -30,7 +30,8 @@ const SmoothScroll = ({ children, reload, isMobile=false }) => {
     const obSize = useObserverSize(document.getElementById('scrollableContainer'))
     
     const setScrollerHeight = () => {
-        document.getElementById('root').style.height = `${scrollableContainerRef.current.getBoundingClientRect().height}px`
+        const { height } = scrollableContainerRef.current.getBoundingClientRect()
+        document.getElementById('root').style.height = `${ height }px`
     }
 
     const smoothScrollingHandler = useCallback( () => {
@@ -59,7 +60,7 @@ const SmoothScroll = ({ children, reload, isMobile=false }) => {
     }, [scrollHandler, isMobile]);
 
     useEffect(() => {
-        setScrollerHeight();
+        setScrollerHeight()
     }, [obSize, reload])
 
     return (

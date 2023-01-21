@@ -63,10 +63,10 @@
 
 @media screen and (max-width: 725px) {
     .text-overlay {
-        // .absolute-positions .header a {
-        //     margin: 0;
-        //     padding: 55px 5% 0 5%; 
-        // }
+        .absolute-positions .header a {
+            margin: 0;
+            padding: 55px 5%; 
+        }
 
         .title-container h1 {
             &::before {

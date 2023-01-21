@@ -17,7 +17,7 @@ const Transition = ({ path }) => {
         const aspect = window.innerHeight /window.innerWidth
 
         location.state || gsap.timeline()
-            .to(pathRef.current, { duration: 0.8, attr: { d: `M 0 100 V 50 Q 50 ${scale(aspect)} 100 50 V 100 z` }, ease: 'power2.in'})
+            .to(pathRef.current, { duration: 0.6, attr: { d: `M 0 100 V 50 Q 50 ${scale(aspect)} 100 50 V 100 z` }, ease: 'power3.in'})
             .to(pathRef.current, { duration: 0.4, attr: { d: "M 0 100 V 0  Q 50 0 100 0  V 100 z" }, ease: 'power2.out'})
                 
     }, [])

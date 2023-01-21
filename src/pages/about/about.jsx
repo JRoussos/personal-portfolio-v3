@@ -1,7 +1,6 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { isMobile } from 'react-device-detect'
-// import { gsap } from 'gsap'
+import { Helmet } from 'react-helmet-async'
 
 import Topper from '../../components/topper/topper'
 import BackBtn from '../../components/backBtn/backBtn'
@@ -13,85 +12,98 @@ import useWindowSize from '../../hooks/useWindowSize'
 import profile from '../../assets/imgs/myself.jpg'
 import './about-style.scss'
 
-const Email = ({ mail }) => {
-    const [ useDefault, setDefault ] = useState(false)
+// const Email = ({ mail }) => {
+//     const [ useDefault, setDefault ] = useState(false)
 
-    const handleMailClick = () => {
-        navigator.clipboard.writeText(mail)
-            .then(() => pRef.current.innerText = 'Mail copied')
-            .catch(() => setDefault(true))
-    }
+//     const handleMailClick = () => {
+//         navigator.clipboard.writeText(mail)
+//             .then(() => pRef.current.innerText = 'Mail copied')
+//             .catch(() => setDefault(true))
+//     }
 
-    return isMobile || useDefault ? 
-        <a className='mail-container' href={`mailto:${mail}`}>{mail}</a> :
-        <div className='mail-container' onClick={handleMailClick} onTransitionEnd={() => {pRef.current.innerText = 'Copy?'}}>
-            <div>
-                <p>Email</p>
-                <p ref={pRef}>Copy?</p>
-            </div>
-        </div>
-}
+//     return isMobile || useDefault ? 
+//         <a className='mail-container' href={`mailto:${mail}`}>{mail}</a> :
+//         <div className='mail-container' onClick={handleMailClick} onTransitionEnd={() => {pRef.current.innerText = 'Copy?'}}>
+//             <div>
+//                 <p>Email</p>
+//                 <p ref={pRef}>Copy?</p>
+//             </div>
+//         </div>
+// }
 
 const About = () => {
     const { socials, email } = useStore().state
     const { width } = useWindowSize()
+    
+    const aboutRef = useRef()
 
     const mail = { name: 'mail', handle: email, url: `mailto:${email}`, title: 'Mail' }
 
-    const texts = [
-        "I’M JOHN",
-        "Creative developer focusing on",
-        "motion and refined digital experiences.",
-        "I'm a pretty outdoorsy guy who loves working out and being outside. Adventures, like mountain climbing and discovering new places, are some of my favorite. I'm also really interested in space and how it works. Wormholes, black holes, and supernovae all fascinate me. There's something inherently thrilling about discovering how things work."
-    ]
+    // const texts = [
+    //     "I’M JOHN",
+    //     "Creative developer focusing on",
+    //     "motion and refined digital experiences.",
+    //     "I'm a pretty outdoorsy guy who loves working out and being outside. Adventures, like mountain climbing and discovering new places, are some of my favorite. I'm also really interested in space and how it works. Wormholes, black holes, and supernovae all fascinate me. There's something inherently thrilling about discovering how things work."
+    // ]
 
-    const wrapText = string => {
-        const wordsArray = string.split(" ")
-        const linesArray = []
+    // const wrapText = string => {
+    //     const wordsArray = string.split(" ")
+    //     const linesArray = []
 
-        const  maxLineWidth = Math.min( 475, window.innerWidth - window.innerWidth * 0.08 )
+    //     const  maxLineWidth = Math.min( 475, window.innerWidth - window.innerWidth * 0.08 )
 
-        const canvas = document.createElement('canvas')
-        const ctx = canvas.getContext('2d')
-        ctx.font = '14px Rubik'
+    //     const canvas = document.createElement('canvas')
+    //     const ctx = canvas.getContext('2d')
+    //     ctx.font = '14px Rubik'
 
-        let line = ''
-        let testLine = ''
+    //     let line = ''
+    //     let testLine = ''
 
-        wordsArray.forEach((word, index) => {
-            testLine += `${word} `
-            const { width } = ctx.measureText(testLine)
+    //     wordsArray.forEach((word, index) => {
+    //         testLine += `${word} `
+    //         const { width } = ctx.measureText(testLine)
 
-            if( Math.ceil(width) > maxLineWidth) {
-                linesArray.push(line)
-                line = testLine = `${word} `
-            }else {
-                line += `${word} `
-            }
+    //         if( Math.ceil(width) > maxLineWidth) {
+    //             linesArray.push(line)
+    //             line = testLine = `${word} `
+    //         }else {
+    //             line += `${word} `
+    //         }
 
-            if(index === wordsArray.length -1) {
-                linesArray.push(line)
-            }
-        })
+    //         if(index === wordsArray.length -1) {
+    //             linesArray.push(line)
+    //         }
+    //     })
 
-        return linesArray
-    }
+    //     return linesArray
+    // }
+
+    // const head = ['I', "’", 'M', '\u00A0', 'J', 'O', 'H', 'N']
 
     useLayoutEffect(() => {
-        document.title = `About — John Roussos`
         document.body.style.background = '#f5f2f2'
 
         // gsap.timeline()
-        //     .to('.word-span', { duration: 0.5, delay: 0.6, opacity: 1, y: 0, ease: 'power1.inOut', stagger: 0.01 })
-        //     .to('.animate', { duration: 0.4, opacity: 1, ease: 'sine.in', stagger: 0.2 }, '-=0.5')
+            // .to('.word-span', { duration: 0.4, delay: 0.45, y: 0, ease: 'expo.out', stagger: 0.014 })
+            // .to('img', { duration: 0.8, objectPosition: '0 100%', ease: 'expo.out'}, '-=0.4')
 
     }, [])
+
+    useEffect(() => {
+        const { height } = aboutRef.current.getBoundingClientRect()
+
+        if ( height < window.innerHeight ) return
+            document.getElementById('root').style.height = `${ height }px`
+    }, [aboutRef])
     
     return (
         <Topper>
-            <div className='about'>
+            <div ref={aboutRef} className='about'>
+                <Helmet>
+                    <title>About — John Roussos</title>
+                </Helmet>
                 <div className='title-wrapper'>
-                    <h1>ABOUT</h1>
+                    <h1>About</h1>
                     <Link to={'/'} replace>
                         <BackBtn/>
                     </Link>

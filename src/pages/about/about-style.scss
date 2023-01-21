@@ -122,6 +122,7 @@
             margin-bottom: 50px;
 
             &:first-child {
+                overflow: hidden;
                 margin-bottom: 30px;
             }
 
@@ -172,10 +173,13 @@
             img {
                 object-fit: cover;
                 object-position: bottom;
+                // object-position: 0 0%;
 
                 aspect-ratio: 2.3;
                 
                 width: 100%;
+
+                // transform: perspective(500px) rotate3d(1, 0, 0, 10deg) translateY(50px);
                 // height: 100vw;
                 // max-height: 650px;
 

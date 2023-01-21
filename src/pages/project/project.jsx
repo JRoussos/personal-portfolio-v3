@@ -7,12 +7,16 @@ import BackBtn from '../../components/backBtn/backBtn'
 import Marquee from '../../components/marquee/marquee'
 import BubbleLink from '../../components/bubbleLink/bubbleLink'
 
+import HelmetTags from '../../components/helmetTags/helmetTags' 
+
 import data from '../../contexts/data'
 
 import './project-style.scss'
 
 const Project = () => {
     const containerRef = useRef()
+    const projectRef   = useRef()
+
     const { id }       = useParams()
 
     const index     = useRef(data.findIndex(_ => _.path === id))
@@ -20,9 +24,15 @@ const Project = () => {
     const project   = useRef(data[index.current])
     
     useLayoutEffect(() => { 
-        document.title = `Project ${project.current.fullname} — John Roussos`
         document.body.style.background = '#f5f2f2' 
     }, [])
+
+    useEffect(() => {
+        const { height } = projectRef.current.getBoundingClientRect()
+
+        if ( height > window.innerHeight )
+            document.getElementById('root').style.height = `${ height }px`
+    }, [projectRef])
 
     useEffect(() => {
         const setContainerPosition = () => {        
@@ -38,7 +48,12 @@ const Project = () => {
 
     return (
         <Topper>
-            <div className='project'>
+            <div className='project' ref={projectRef}>
+                <HelmetTags 
+                    title={`${project.current.fullname} — John Roussos`} 
+                    description={project.current.desc} 
+                    image={project.current.media.picture}
+                />
                 <div className='header'>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <span>{(index.current + 1).toLocaleString(undefined, { minimumIntegerDigits: 2 })}.</span>
