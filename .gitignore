@@ -19,6 +19,7 @@ firebase.json
 
 #files
 src/assets
+favicons
 
 # Editor directories and files
 .vscode/*
