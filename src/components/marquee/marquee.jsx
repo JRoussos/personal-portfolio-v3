@@ -1,51 +1,52 @@
 import React, { useCallback, useEffect, useRef } from 'react'
+import gsap from 'gsap'
 import { getScrollValue } from '../smoothScroll/SmoothScroll'
 import './marquee-style.scss'
 
+// Base scrolling speed, in pixels per second (equivalent to the original
+// "1px per ~16.6ms frame" behaviour, but expressed as a rate so it stays
+// correct regardless of the display's refresh rate).
+const BASE_SPEED = 60
+
 const Marquee = ({ text }) => {
-    const animationFrameID = useRef()
     const marqueeRef = useRef()
     
-    const current_position = useRef(0)
+    const currentPosition = useRef(0)
     const width = useRef(0)
 
-    let then = new Date().getTime()
-    let interval = 16.667
-    
-    const animate = useCallback(() => {
-        if (!marqueeRef.current) return
-        animationFrameID.current = requestAnimationFrame(animate)
+    // Driven by gsap's shared ticker (same one used by SmoothScroll) and
+    // using its real deltaTime for the movement, instead of a hand-rolled
+    // Date.now()/modulo frame gate racing against requestAnimationFrame.
+    // That double-timing was the main source of visible stutter, since the
+    // gate would arbitrarily skip or double up frames whenever the manual
+    // clock drifted from the browser's actual vsync timing.
+    const animate = useCallback((time, deltaTime) => {
+        if (!marqueeRef.current || !width.current) return
 
-        let now = new Date().getTime()
-        let diff = now - then
+        const { delta } = getScrollValue()
+        const dt = deltaTime / 1000
 
-        if(diff > interval) {
-            then = now - (diff % interval)
+        currentPosition.current += BASE_SPEED * dt + Math.abs(delta)
+        if (currentPosition.current > width.current) currentPosition.current -= width.current
 
-            const { delta } = getScrollValue()
-            
-            current_position.current += 1 + Math.abs(delta)
-            if (current_position.current > width.current ) current_position.current = 0
-    
-            marqueeRef.current.style.transform = `translate3d(-${current_position.current}px, 0, 0)`
-        }
-
+        marqueeRef.current.style.transform = `translate3d(-${currentPosition.current}px, 0, 0)`
     }, [])
 
-    
     useEffect(() => {
-        const initializePositions = () => {
-            width.current = marqueeRef.current.clientWidth/2
-            // console.log(width.current);
-        }
-        
-        window.addEventListener('resize', initializePositions)
-        setTimeout(initializePositions, 100)
-        
-        animate()
+        if (!marqueeRef.current) return
+
+        const element = marqueeRef.current
+
+        const resizeObserver = new ResizeObserver(() => {
+            width.current = element.clientWidth / 2
+        })
+        resizeObserver.observe(element)
+
+        gsap.ticker.add(animate)
+
         return () => {
-            window.removeEventListener('resize', initializePositions)
-            cancelAnimationFrame(animationFrameID.current)
+            resizeObserver.disconnect()
+            gsap.ticker.remove(animate)
         }
     }, [animate])
 

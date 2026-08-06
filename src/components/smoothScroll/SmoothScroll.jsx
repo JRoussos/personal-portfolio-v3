@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback } from "react";
+import gsap from "gsap";
 import useObserverSize from '../../hooks/useObserverSize';
 
 const parent_style = {    
@@ -12,19 +13,15 @@ const config = {
     velocity: 0.06,
     current: 0,
     previous: 0,
-    requestScrollEvent: 0
+    delta: 0
 }
 
 export const getScrollValue = () => {
-    const delta = (config.current - config.previous) * config.velocity
-    return {
-        scroll: config.previous + delta, 
-        delta
-    }
+    return { scroll: config.previous, delta: config.delta }
 }
 
 const SmoothScroll = ({ children, reload, isMobile=false }) => {
-    const SCROLL_ID  = useRef(null)
+    const isAnimating = useRef(false)
     const scrollableContainerRef = useRef()
 
     const obSize = useObserverSize(document.getElementById('scrollableContainer'))
@@ -34,30 +31,47 @@ const SmoothScroll = ({ children, reload, isMobile=false }) => {
         document.getElementById('root').style.height = `${ height }px`
     }
 
-    const smoothScrollingHandler = useCallback( () => {
+    // Driven by gsap's shared ticker instead of its own requestAnimationFrame
+    // loop, so the easing amount is scaled by the real frame duration
+    // (deltaRatio) rather than assuming a fixed 60fps step. This keeps the
+    // catch-up speed visually consistent regardless of display refresh rate
+    // or dropped frames, and gsap's built-in lag smoothing avoids a big
+    // jump after the tab was throttled in the background.
+    const smoothScrollingHandler = useCallback(() => {
         config.current = window.scrollY
-        config.previous += (config.current - config.previous) * config.velocity
+
+        const ease = 1 - Math.pow(1 - config.velocity, gsap.ticker.deltaRatio())
+        const previous = config.previous
+        config.previous += (config.current - previous) * ease
+        config.delta = config.previous - previous
 
         if (Math.abs(config.current - config.previous) < 0.05) {
             config.previous = config.current
-            config.requestScrollEvent = 0
+            config.delta = 0
+
+            gsap.ticker.remove(smoothScrollingHandler)
+            isAnimating.current = false
         }
 
         scrollableContainerRef.current.style.transform = `translate3d(0, -${config.previous}px, 0)`
-
-        SCROLL_ID.current = config.requestScrollEvent > 0 ? requestAnimationFrame(smoothScrollingHandler) : null
-    }, [SCROLL_ID])
+    }, [])
     
     const scrollHandler = useCallback(() => {
-        config.requestScrollEvent++;
-        if (!SCROLL_ID.current) SCROLL_ID.current = requestAnimationFrame(smoothScrollingHandler)
-    }, [SCROLL_ID, smoothScrollingHandler])
+        if (isAnimating.current) return
+        isAnimating.current = true
+        gsap.ticker.add(smoothScrollingHandler)
+    }, [smoothScrollingHandler])
     
     useEffect(() => {
         if (isMobile) return
         
-        window.addEventListener('scroll', scrollHandler)
-    }, [scrollHandler, isMobile]);
+        window.addEventListener('scroll', scrollHandler, { passive: true })
+        return () => {
+            window.removeEventListener('scroll', scrollHandler)
+            gsap.ticker.remove(smoothScrollingHandler)
+            isAnimating.current = false
+        }
+    }, [scrollHandler, smoothScrollingHandler, isMobile]);
 
     useEffect(() => {
         setScrollerHeight()
