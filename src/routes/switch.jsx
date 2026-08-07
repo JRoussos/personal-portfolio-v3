@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { isMobile } from 'react-device-detect'
 
 import loadable from '@loadable/component'
@@ -16,6 +16,7 @@ import './switch-styles.scss'
 // const Home = loadable(() => import('../pages/home/home'))
 const About = loadable(() => import('../pages/about/about'))
 const Project = loadable(() => import('../pages/project/project'))
+const NotFound = loadable(() => import('../pages/notFound/notFound'))
 
 const Switch = () => {
     const routerLocation = useLocation()
@@ -49,7 +50,7 @@ const Switch = () => {
                     <Route path="/" element={ <Home/> }/>
                     <Route path="/about" element={ <About/> }/>
                     <Route path="/project/:id" element={ <Project/> }/>
-                    <Route path="*" element={ <Navigate to="/" replace /> }/>
+                    <Route path="*" element={ <NotFound/> }/>
                 </Routes>
                 {routerLocation !== currentLocation && <Transition path={routerLocation.pathname}/>}
             </div>
