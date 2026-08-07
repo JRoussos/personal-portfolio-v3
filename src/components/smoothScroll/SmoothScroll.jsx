@@ -24,6 +24,12 @@ const SmoothScroll = ({ children, reload, isMobile=false }) => {
     const isAnimating = useRef(false)
     const scrollableContainerRef = useRef()
 
+    // Users who request reduced motion get native scrolling instead of the
+    // lerped/RAF-driven smooth scroll effect.
+    const prefersReducedMotion = typeof window !== 'undefined' &&
+        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    const disableSmoothScroll = isMobile || prefersReducedMotion
+
     const obSize = useObserverSize(document.getElementById('scrollableContainer'))
     
     const setScrollerHeight = () => {
@@ -63,7 +69,7 @@ const SmoothScroll = ({ children, reload, isMobile=false }) => {
     }, [smoothScrollingHandler])
     
     useEffect(() => {
-        if (isMobile) return
+        if (disableSmoothScroll) return
         
         window.addEventListener('scroll', scrollHandler, { passive: true })
         return () => {
@@ -78,8 +84,8 @@ const SmoothScroll = ({ children, reload, isMobile=false }) => {
     }, [obSize, reload])
 
     return (
-        <div style={isMobile ? null : parent_style}>
-           <main id="scrollableContainer" ref={scrollableContainerRef} style={{willChange: "transform"}}>{children}</main>
+        <div style={disableSmoothScroll ? null : parent_style}>
+           <main id="scrollableContainer" ref={scrollableContainerRef} style={{willChange: disableSmoothScroll ? 'auto' : 'transform'}}>{children}</main>
         </div>
     )
 }

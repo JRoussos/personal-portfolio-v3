@@ -106,7 +106,7 @@ const About = () => {
                 />
                 <div className='title-wrapper'>
                     <h1>About</h1>
-                    <Link to={'/'} replace>
+                    <Link to={'/'} replace aria-label="Back to home">
                         <BackBtn/>
                     </Link>
                 </div>

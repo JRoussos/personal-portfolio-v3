@@ -58,7 +58,7 @@ const Project = () => {
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <span>{(index.current + 1).toLocaleString(undefined, { minimumIntegerDigits: 2 })}.</span>
                     </div>
-                    <Link to={'/'} replace style={{ margin: '0 -10px 0 0'}}>
+                    <Link to={'/'} replace aria-label="Back to home" style={{ margin: '0 -10px 0 0'}}>
                         <BackBtn/>
                     </Link>
                 </div>
@@ -87,15 +87,15 @@ const Project = () => {
                 </div>
                 <div className='grid-images'>
                     <div className='image-layout'>
-                        <img src={project.current.media.picture} />
+                        <img src={project.current.media.picture} alt={`${project.current.fullname} cover`} />
                     </div>
                     {project.current.layout.map( (layout, index) => (
                         <div key={index} className='image-layout'>
-                            {layout.map( horizontal => {
+                            {layout.map( (horizontal, i) => {
                                 if(horizontal.image.slice(-1) === '4')
-                                    return <div className='video-container'><video src={horizontal.image} key={horizontal.image} autoPlay muted loop playsInline/></div>
+                                    return <div className='video-container' key={horizontal.image}><video src={horizontal.image} autoPlay muted loop playsInline aria-label={`${project.current.fullname} preview video ${i + 1}`}/></div>
                                 else 
-                                    return <img src={horizontal.image} key={horizontal.image} style={{width: horizontal.percentage, aspectRatio: horizontal.aspect}} /> 
+                                    return <img src={horizontal.image} key={horizontal.image} alt={`${project.current.fullname} screenshot ${i + 1}`} style={{width: horizontal.percentage, aspectRatio: horizontal.aspect}} /> 
                             })}
                         </div>
                     ))}

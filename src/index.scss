@@ -26,8 +26,26 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-*:focus {
-    outline: none !important;
+// Remove the default outline only for pointer/touch interactions, but keep a
+// visible focus ring for keyboard users (WCAG 2.4.7 Focus Visible).
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+*:focus-visible {
+    // currentColor keeps contrast reasonable on both the dark (home) and
+    // light (about/project) backgrounds used across the site.
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 main {
