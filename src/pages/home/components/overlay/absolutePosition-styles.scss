@@ -1,7 +1,6 @@
 @import '../../../../styles/variables';
 
 .absolute-positions {
-
     a {
         pointer-events: all;
         cursor: pointer;
@@ -16,11 +15,11 @@
 
         position: absolute;
         top: 0;
+        left: 0;
         right: 0;
 
-        width: 100%;
         pointer-events: none;
-        // background: linear-gradient(#121212cc, transparent);
+        margin: 15px 5%; 
 
         h1, svg, a {
             display: block;
@@ -30,7 +29,7 @@
             font-weight: 400;
             color: text-color(255, 0.8);
 
-            margin: 40px 5%; 
+            // margin: 40px 5%; 
 
             text-decoration: none;
             pointer-events: all;

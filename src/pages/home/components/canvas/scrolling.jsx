@@ -7,6 +7,12 @@ import { gsap } from 'gsap'
 
 import Tiles from './tiles/tiles';
 import Texts from './texts/texts';
+import {
+    PROJECT_COUNT,
+    circularDelta,
+    clearScrollTarget,
+    getScrollTarget,
+} from './scrollBridge'
 
 const Scrolling = () => {    
     const tilesRef = useRef()
@@ -41,6 +47,23 @@ const Scrolling = () => {
     // const asterisk = document.getElementById('asterisk-icon')
 
     useFrame(({ clock }) => {
+        // Tab-focused project link → ease the infinite scroller to that tile
+        const scrollTarget = getScrollTarget()
+        if (scrollTarget !== null) {
+            const current = ((scrollIndexValue.current % PROJECT_COUNT) + PROJECT_COUNT) % PROJECT_COUNT
+            const keyboardDiff = circularDelta(current, scrollTarget)
+
+            // Kill residual wheel/drag momentum while keyboard is driving
+            currentScroll.current = 0
+            prevScroll.current = 0
+
+            if (Math.abs(keyboardDiff) > 0.01) {
+                scrollIndexValue.current += keyboardDiff * 0.18
+            } else {
+                scrollIndexValue.current = scrollTarget
+            }
+        }
+
         scrollDeltaProgress.current = lerp(prevScroll.current, currentScroll.current, 0.07)
         
         scrollIndexValue.current += scrollDeltaProgress.current
@@ -53,14 +76,18 @@ const Scrolling = () => {
 
         let diff = (rounded.current - scrollIndexValue.current)
 
-        scrollIndexValue.current += Math.sign(diff) * Math.pow(Math.abs(diff), 0.7) * 0.02
+        // Don't fight the keyboard-driven position with the magnetic snap
+        if (scrollTarget === null) {
+            scrollIndexValue.current += Math.sign(diff) * Math.pow(Math.abs(diff), 0.7) * 0.02
+        }
+
         scrollIndexValue.current = Math.round(scrollIndexValue.current * 10000) / 10000
-        scrollIndexValue.current %= 4
-        rounded.current %= 4
+        scrollIndexValue.current %= PROJECT_COUNT
+        rounded.current %= PROJECT_COUNT
 
         config.pointerPosition = rounded.current
 
-        if (scrollIndexValue.current < 0) scrollIndexValue.current += 4 //number of indicators
+        if (scrollIndexValue.current < 0) scrollIndexValue.current += PROJECT_COUNT
 
         tilesRef.current.children.forEach((mesh, index) => {
             mesh.position.y = (scrollIndexValue.current * tileHeight) - (tileHeight * 7) + (tileHeight * index) // tileHeight * 7 to correct position and order
@@ -88,11 +115,15 @@ const Scrolling = () => {
 
     useEffect(() => {
         const handleWheel = event => {
+            // Pointer scroll wins over keyboard snap
+            clearScrollTarget()
+
             const normalized = normalizeWheel(event)
             currentScroll.current += normalized.pixelY * 0.003
         }
 
         const handleTouchDown = event => {
+            clearScrollTarget()
             touchProps.current.touchStart = event.clientY || event.touches[0].clientY
             touchProps.current.isDragging = true
         }

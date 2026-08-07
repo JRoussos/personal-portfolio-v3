@@ -1,67 +1,126 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import gsap from 'gsap'
+import React, { useEffect, useRef } from 'react'
 import { getScrollValue } from '../smoothScroll/SmoothScroll'
 import './marquee-style.scss'
 
-// Base scrolling speed, in pixels per second (equivalent to the original
-// "1px per ~16.6ms frame" behaviour, but expressed as a rate so it stays
-// correct regardless of the display's refresh rate).
+// Pixels per second at playbackRate 1.
 const BASE_SPEED = 60
+// How quickly playbackRate eases toward the Lenis-driven target (per 60fps tick).
+const RATE_SMOOTHING = 0.14
+const MAX_PLAYBACK_RATE = 10
 
 const Marquee = ({ text }) => {
-    const marqueeRef = useRef()
-    
-    const currentPosition = useRef(0)
-    const width = useRef(0)
-
-    // Driven by gsap's shared ticker (same one used by SmoothScroll) and
-    // using its real deltaTime for the movement, instead of a hand-rolled
-    // Date.now()/modulo frame gate racing against requestAnimationFrame.
-    // That double-timing was the main source of visible stutter, since the
-    // gate would arbitrarily skip or double up frames whenever the manual
-    // clock drifted from the browser's actual vsync timing.
-    const animate = useCallback((time, deltaTime) => {
-        if (!marqueeRef.current || !width.current) return
-
-        const { delta } = getScrollValue()
-        const dt = deltaTime / 1000
-
-        currentPosition.current += BASE_SPEED * dt + Math.abs(delta)
-        if (currentPosition.current > width.current) currentPosition.current -= width.current
-
-        marqueeRef.current.style.transform = `translate3d(-${currentPosition.current}px, 0, 0)`
-    }, [])
+    const containerRef = useRef(null)
+    const trackRef = useRef(null)
 
     useEffect(() => {
-        if (!marqueeRef.current) return
+        const container = containerRef.current
+        const track = trackRef.current
+        if (!container || !track) return
 
-        const element = marqueeRef.current
+        const prefersReducedMotion =
+            window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+        if (prefersReducedMotion) return
 
-        const resizeObserver = new ResizeObserver(() => {
-            width.current = element.clientWidth / 2
-        })
-        resizeObserver.observe(element)
+        const segment = track.children[0]
+        let animation = null
+        let playbackRate = 1
+        let visible = true
+        let rafId = 0
+        let lastTs = performance.now()
 
-        gsap.ticker.add(animate)
+        const syncAnimation = () => {
+            const loopWidth = segment.offsetWidth
+            if (!loopWidth) return
+
+            const duration = (loopWidth / BASE_SPEED) * 1000
+            const prevProgress =
+                animation?.effect?.getComputedTiming?.()?.progress ?? 0
+
+            animation?.cancel()
+            // -50% is half the track (one segment). Keeps the loop seamless
+            // without measuring or writing a pixel transform every frame —
+            // the browser can run this on the compositor.
+            animation = track.animate(
+                [
+                    { transform: 'translate3d(0, 0, 0)' },
+                    { transform: 'translate3d(-50%, 0, 0)' },
+                ],
+                {
+                    duration,
+                    iterations: Infinity,
+                    easing: 'linear',
+                }
+            )
+            animation.currentTime = prevProgress * duration
+            animation.playbackRate = playbackRate
+            if (!visible) animation.pause()
+        }
+
+        const onFrame = (now) => {
+            rafId = requestAnimationFrame(onFrame)
+            if (!animation) return
+
+            const dt = Math.max((now - lastTs) / 1000, 0.001)
+            lastTs = now
+
+            // Lenis delta is the per-tick scroll change (lenis.velocity).
+            const { delta } = getScrollValue()
+            const scrollSpeed = visible ? Math.abs(delta) / dt : 0
+
+            const targetRate = Math.min(1 + scrollSpeed / BASE_SPEED, MAX_PLAYBACK_RATE)
+            const alpha = 1 - Math.pow(1 - RATE_SMOOTHING, dt * 60)
+
+            playbackRate += (targetRate - playbackRate) * alpha
+            animation.playbackRate = playbackRate
+        }
+
+        const resizeObserver = new ResizeObserver(syncAnimation)
+        resizeObserver.observe(segment)
+        syncAnimation()
+
+        const intersectionObserver = new IntersectionObserver(
+            ([entry]) => {
+                visible = entry.isIntersecting
+                if (!animation) return
+                if (visible) {
+                    lastTs = performance.now()
+                    animation.play()
+                } else {
+                    animation.pause()
+                }
+            },
+            { rootMargin: '15% 0px' }
+        )
+        intersectionObserver.observe(container)
+
+        rafId = requestAnimationFrame(onFrame)
 
         return () => {
             resizeObserver.disconnect()
-            gsap.ticker.remove(animate)
+            intersectionObserver.disconnect()
+            cancelAnimationFrame(rafId)
+            animation?.cancel()
         }
-    }, [animate])
+    }, [text])
+
+    const label = `${text} —`
 
     return (
-        <div className='marquee-container'>
-            <div ref={marqueeRef} className='marquee'>
-                <h1>{`${text} —`}&nbsp;</h1>
-                <h1>{`${text} —`}&nbsp;</h1>
-                <h1>{`${text} —`}&nbsp;</h1>
-                <h1>{`${text} —`}&nbsp;</h1>
-                <h1>{`${text} —`}&nbsp;</h1>
-                <h1>{`${text} —`}&nbsp;</h1>
+        <div ref={containerRef} className='marquee-container'>
+            <div ref={trackRef} className='marquee'>
+                <div className='marquee__segment'>
+                    <h1>{label}&nbsp;</h1>
+                    <h1 aria-hidden='true'>{label}&nbsp;</h1>
+                    <h1 aria-hidden='true'>{label}&nbsp;</h1>
+                </div>
+                <div className='marquee__segment' aria-hidden='true'>
+                    <h1>{label}&nbsp;</h1>
+                    <h1>{label}&nbsp;</h1>
+                    <h1>{label}&nbsp;</h1>
+                </div>
             </div>
         </div>
     )
 }
 
-export default Marquee;
+export default Marquee

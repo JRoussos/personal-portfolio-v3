@@ -3,9 +3,24 @@ const initialState = {
     canvasReady: false,
     email: 'jroussosdev@gmail.com',
     socials: [
-        { name: 'tw', handle: '@giannhs_r', title: 'Twitter', url: 'https://twitter.com/giannhs_r' },
-        { name: 'ig', handle: '@giannhs_r', title: 'Instagram', url: 'https://www.instagram.com/giannhs_r' },
-        { name: 'gh', handle: '@JRoussos', title: 'Github', url: 'https://www.github.com/JRoussos' }
+        { 
+            name: 'x', 
+            handle: '@giannhs_r', 
+            title: 'X (Twitter)', 
+            url: 'https://x.com/giannhs_r' 
+        },
+        { 
+            name: 'ig', 
+            handle: '@giannhs_r', 
+            title: 'Instagram', 
+            url: 'https://www.instagram.com/giannhs_r' 
+        },
+        { 
+            name: 'gh', 
+            handle: '@JRoussos', 
+            title: 'Github', 
+            url: 'https://www.github.com/JRoussos' 
+        }
     ],
     imagesArray: []
 }

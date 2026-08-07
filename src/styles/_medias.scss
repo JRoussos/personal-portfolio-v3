@@ -56,8 +56,29 @@
         flex-wrap: wrap;
     }
 
-    .about .pre-grid {
-        flex-wrap: wrap !important;
+    .about {
+        // Fill the viewport so short pages (404) pin the photo to the bottom,
+        // matching About. 5vh accounts for the existing translateY offset.
+        min-height: calc(100svh - 5vh);
+        display: flex;
+        flex-direction: column;
+
+        .pre-grid {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap !important;
+            justify-content: flex-start;
+            min-height: 0;
+
+            .grid {
+                width: 100%;
+            }
+
+            .grid:nth-child(2) {
+                margin-top: auto;
+            }
+        }
     }
 }
 

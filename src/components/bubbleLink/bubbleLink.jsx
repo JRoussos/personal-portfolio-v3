@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './bubbleLink-styles.scss'
 
 const Arrow = () => (
@@ -9,16 +10,30 @@ const Arrow = () => (
     </span> 
 )
 
-const BubbleLink = ({ children, className, handle, href }) => { 
+const BubbleContent = ({ children }) => (
+    <div className='contact-bubble'>
+        <div style={{ whiteSpace: 'nowrap' }}>
+            <span>{children}</span>
+            <Arrow/>
+        </div>
+        <div className='bubble-background'></div>
+    </div>
+)
+
+const BubbleLink = ({ children, className, handle, href, to, onClick }) => {
+    const classNames = `bubble ${className || ''}`
+
+    if (to) {
+        return (
+            <Link className={classNames} title={handle} to={to} onClick={onClick}>
+                <BubbleContent>{children}</BubbleContent>
+            </Link>
+        )
+    }
+
     return (
-        <a className={`bubble ${className}`} title={handle} target="_blank" rel="noopener noreferrer" href={href}>
-            <div className='contact-bubble'>
-                <div style={{ whiteSpace: 'nowrap' }}>
-                    <span>{children}</span>
-                    <Arrow/>
-                </div>
-                <div className='bubble-background'></div>
-            </div>
+        <a className={classNames} title={handle} target="_blank" rel="noopener noreferrer" href={href} onClick={onClick}>
+            <BubbleContent>{children}</BubbleContent>
         </a>
     )
 }

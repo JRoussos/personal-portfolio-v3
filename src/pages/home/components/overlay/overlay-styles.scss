@@ -26,6 +26,23 @@
         text-decoration: underline;
         color: $text_white_80;
     }
+
+    // Visible stand-in for :focus-visible on the visually-hidden project links —
+    // sits over the centered WebGL tile while Tab-navigating projects.
+    .tile-focus-ring {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        width: min(92vw, 168vh);
+        aspect-ratio: 2 / 1;
+        max-height: 72vh;
+
+        pointer-events: none;
+        outline: 2px solid rgba(255, 255, 255, 0.85);
+        outline-offset: 10px;
+    }
     
     .title-container {
         position: relative;

@@ -1,46 +1,49 @@
 import React, { useLayoutEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Topper from '../../components/topper/topper'
 import BackBtn from '../../components/backBtn/backBtn'
 import BubbleLink from '../../components/bubbleLink/bubbleLink'
 import HelmetTags from '../../components/helmetTags/helmetTags'
 
-import { useStore } from '../../contexts/store'
 import useWindowSize from '../../hooks/useWindowSize'
+import data from '../../contexts/data'
 
-import profile from '../../assets/imgs/myself-edit.jpg'
-import './about-style.scss'
+import desert from '../../assets/imgs/desert.jpg'
+import '../about/about-style.scss'
+import './notFound-style.scss'
 
-const About = () => {
-    const { socials, email } = useStore().state
+const getRandomProjectPath = () => {
+    const project = data[Math.floor(Math.random() * data.length)]
+    return `/project/${project.path}`
+}
+
+const NotFound = () => {
     const { width } = useWindowSize()
-
-    const aboutRef = useRef()
-
-    const mail = {
-        name: 'e-mail',
-        handle: email,
-        url: `mailto:${email}`,
-        title: 'E-mail'
-    }
+    const navigate = useNavigate()
+    const pageRef = useRef()
 
     useLayoutEffect(() => {
         document.body.style.background = '#f5f2f2'
     }, [])
 
+    const handleRandomProject = (e) => {
+        e.preventDefault()
+        navigate(getRandomProjectPath())
+    }
+
     return (
         <Topper>
-            <div ref={aboutRef} className='about'>
+            <div ref={pageRef} className='about not-found'>
                 <HelmetTags
-                    title={'About — John Roussos'}
-                    description={"I'm John, a creative developer focusing on motion and refined digital experiences, based in Greece."}
-                    image={profile}
+                    title={'404 — John Roussos'}
+                    description={'This page seems to have gotten lost. The link you followed may be broken or the page may have been moved.'}
+                    image={desert}
                 />
                 <div className='title-wrapper'>
-                    <h1>About</h1>
+                    <h1>404</h1>
                     <Link to={'/'} replace aria-label="Back to home">
-                        <BackBtn />
+                        <BackBtn/>
                     </Link>
                 </div>
                 <div className='horizontal-line'></div>
@@ -48,21 +51,21 @@ const About = () => {
                     <div className='grid'>
                         <div style={{ width: 'inherit' }}>
                             <div className='paragraph-wrapper'>
-                                <h1>I’M JOHN</h1>
+                                <h1>404</h1>
                             </div>
                             <div className='paragraph-wrapper'>
-                                <p>Creative developer focusing on<br />
-                                    motion and visually appealing web experiences.</p>
+                                <p>This page seems to have gotten lost.</p>
                             </div>
                             <div className='paragraph-wrapper'>
-                                <p>I'm a pretty outdoorsy guy who loves working out and being outside. Adventures, like mountain climbing and discovering new places, are some of my favorite. I'm also really interested in space and how it works. Wormholes, black holes, and supernovae all fascinate me. There's something inherently thrilling about discovering how things work.</p>
+                                <p>The link you followed may be broken or the page may have been moved. You can go back to the homepage or check out this project that I made.</p>
                             </div>
                             <div className='paragraph-wrapper'>
                                 <div className='contact-wrapper'>
                                     <div className='flex-container'>
-                                        {[mail, ...socials].map(profile => (
-                                            <BubbleLink key={profile.name} handle={profile.handle} href={profile.url}>{profile.title}</BubbleLink>
-                                        ))}
+                                        <BubbleLink to='/'>Home</BubbleLink>
+                                        <BubbleLink to={getRandomProjectPath()} onClick={handleRandomProject}>
+                                            Check this project
+                                        </BubbleLink>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +73,7 @@ const About = () => {
                     </div>
                     <div className='grid'>
                         <div className='image-container'>
-                            <img src={profile} alt='profile' style={{ aspectRatio: Math.min(Math.max(((width - 400) * 1.3) / 1100 + 1, 1), 2.3) }} />
+                            <img src={desert} alt='desert landscape' style={{ aspectRatio: Math.min(Math.max(((width-400)*1.3)/1100 + 1, 1), 2.3) }}/>
                         </div>
                     </div>
                 </div>
@@ -79,4 +82,4 @@ const About = () => {
     )
 }
 
-export default About
+export default NotFound

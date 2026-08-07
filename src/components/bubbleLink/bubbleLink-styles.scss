@@ -4,7 +4,11 @@
     position: relative;
     overflow: hidden;
 
-    margin: 5px 0;
+    // margin: 5px 0;
+    text-decoration: none;
+    color: inherit;
+
+    cursor: pointer;
 
     &:hover .arrow {
         transform: translate3d(8px, 0, 0);
