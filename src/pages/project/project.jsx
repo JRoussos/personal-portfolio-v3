@@ -8,6 +8,7 @@ import Marquee from '../../components/marquee/marquee'
 import BubbleLink from '../../components/bubbleLink/bubbleLink'
 
 import HelmetTags from '../../components/helmetTags/helmetTags' 
+import NotFound from '../notFound/notFound'
 
 import data from '../../contexts/data'
 
@@ -28,6 +29,8 @@ const Project = () => {
     }, [])
 
     useEffect(() => {
+        if (!projectRef.current) return
+
         const { height } = projectRef.current.getBoundingClientRect()
 
         if ( height > window.innerHeight )
@@ -35,7 +38,10 @@ const Project = () => {
     }, [projectRef])
 
     useEffect(() => {
-        const setContainerPosition = () => {        
+        if (!containerRef.current) return
+
+        const setContainerPosition = () => {
+            if (!containerRef.current) return
             const { x } = containerRef.current.getBoundingClientRect()
             containerRef.current.children[0].style.transform = `translate3d(-${Math.abs(x)}px, 0, 0)`
         }
@@ -45,6 +51,8 @@ const Project = () => {
         window.addEventListener('resize', setContainerPosition)
         return () => window.removeEventListener('resize', setContainerPosition)
     }, [])
+
+    if (!project.current) return <NotFound />
 
     return (
         <Topper>
