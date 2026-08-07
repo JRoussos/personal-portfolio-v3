@@ -1,10 +1,10 @@
 import React, { useLayoutEffect, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
 
 import Topper from '../../components/topper/topper'
 import BackBtn from '../../components/backBtn/backBtn'
 import BubbleLink from '../../components/bubbleLink/bubbleLink'
+import HelmetTags from '../../components/helmetTags/helmetTags'
 
 import { useStore } from '../../contexts/store'
 import useWindowSize from '../../hooks/useWindowSize'
@@ -99,9 +99,11 @@ const About = () => {
     return (
         <Topper>
             <div ref={aboutRef} className='about'>
-                <Helmet>
-                    <title>About — John Roussos</title>
-                </Helmet>
+                <HelmetTags
+                    title={'About — John Roussos'}
+                    description={"I'm John, a creative developer focusing on motion and refined digital experiences, based in Greece."}
+                    image={profile}
+                />
                 <div className='title-wrapper'>
                     <h1>About</h1>
                     <Link to={'/'} replace>

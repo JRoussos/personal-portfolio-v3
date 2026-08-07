@@ -9,9 +9,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#000000">
 
-    <!-- preloads -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" as="style">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&display=swap">
 
     <!-- meta -->
     <meta charset="utf-8" />
@@ -21,6 +23,9 @@
     <meta name="author" content="John Roussos" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
+    <!-- canonical -->
+    <link rel="canonical" href="https://johnroussos.dev/" />
+
     <!-- open graph -->
     <meta property="og:locale" content="en_US"/>
     <meta property="og:site_name" content="John Roussos — Developer"/>
@@ -29,20 +34,46 @@
     <meta property="og:description" content="Creative developer focusing on motion and visually appealing web experiences based in Greece." data-rh="true" />
     <meta property="og:url" content="https://johnroussos.dev/" />
 
-    <meta property="og:image" content="/assets/thumbnail-c488ab5f.jpg" data-rh="true" />
-    <meta property="og:image:width" content="1200" data-rh="true" />
-    <meta property="og:image:height" content="630" data-rh="true" />
+    <meta property="og:image" content="https://johnroussos.dev/social-preview.jpg" data-rh="true" />
+    <meta property="og:image:width" content="2400" data-rh="true" />
+    <meta property="og:image:height" content="1260" data-rh="true" />
 
     <!-- twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@giannhs_r" />
     <meta name="twitter:title" content="John Roussos — Developer" data-rh="true" />
     <meta name="twitter:description" content="Creative developer focusing on motion and visually appealing web experiences based in Greece." data-rh="true" />
-    <meta name="twitter:image" content="/assets/thumbnail-c488ab5f.jpg" data-rh="true" />
+    <meta name="twitter:image" content="https://johnroussos.dev/social-preview.jpg" data-rh="true" />
 
-    <!-- <link rel="manifest" href="/manifest.json"/> -->
+    <link rel="manifest" href="/manifest.json"/>
 
     <title>John Roussos — Developer</title>
+
+    <!-- structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "John Roussos",
+        "url": "https://johnroussos.dev/",
+        "jobTitle": "Creative Developer",
+        "description": "Creative developer focusing on motion and visually appealing web experiences based in Greece.",
+        "image": "https://johnroussos.dev/social-preview.jpg",
+        "sameAs": [
+          "https://twitter.com/giannhs_r",
+          "https://www.instagram.com/giannhs_r",
+          "https://www.github.com/JRoussos"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "John Roussos — Developer",
+        "url": "https://johnroussos.dev/"
+      }
+    </script>
   </head>
   <body style="background: #090909">
     <noscript>You need to enable JavaScript to run this app.</noscript>
