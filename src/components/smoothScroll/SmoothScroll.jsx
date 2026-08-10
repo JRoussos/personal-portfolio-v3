@@ -13,6 +13,7 @@ const LENIS_OPTIONS = {
     autoResize: true,
     orientation: 'vertical',
     gestureOrientation: 'vertical',
+    overscroll: false,
 }
 
 // Imperative scroll snapshot for non-React consumers (e.g. marquee rAF loop).

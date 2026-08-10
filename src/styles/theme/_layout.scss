@@ -1,7 +1,7 @@
 @use '@styles/abstracts/variables' as *;
 
 :root {
-    overscroll-behavior: contain;
+    overscroll-behavior: none;
     scrollbar-width: none;
     user-select: none;
     
@@ -11,6 +11,12 @@
     &::-webkit-scrollbar {
         display: none;
     }
+}
+
+html,
+body {
+    overscroll-behavior: none;
+    overscroll-behavior-y: none;
 }
 
 body {

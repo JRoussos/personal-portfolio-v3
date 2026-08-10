@@ -21,7 +21,7 @@ const Scrolling = () => {
     const tilesRef = useRef()
     const textsRef = useRef()
 
-    const currentScroll = useRef(0.24)
+    const currentScroll = useRef(1.0)
     const prevScroll = useRef(0)
     const rounded = useRef(0)
     
