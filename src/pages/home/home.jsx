@@ -1,4 +1,3 @@
-// import { isMobile } from 'react-device-detect'
 import loadable from '@loadable/component'
 
 import Layout from '@components/layout/layout'
@@ -10,7 +9,6 @@ import { SASS_VARIABLES } from '@utils/sass-variables'
 // three.js / react-three-fiber / drei / gsap bundle used by the desktop
 // WebGL scene (and vice versa, desktop skips the mobile-only bundle).
 const Desktop = loadable(() => import('./desktop/desktop'))
-// const Mobile  = loadable(() => import('./components/mobile/mobile'))
 
 const Home = () => {
     return (
@@ -21,10 +19,6 @@ const Home = () => {
             color={SASS_VARIABLES.BACKGROUND_DARK}
         >
             <Desktop />
-            {/* {isMobile 
-                ? <Mobile/> 
-                : <Desktop/>
-            } */}
         </Layout>
     )
 }
