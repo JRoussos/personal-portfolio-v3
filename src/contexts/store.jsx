@@ -1,13 +1,25 @@
-import React, { useReducer, useContext } from 'react';
-import { initialState, reducer } from './state';
+import { createContext, useContext, useMemo, useReducer } from 'react'
+import { initialState, reducer } from './state'
 
-const Store = React.createContext(initialState)
+const StoreContext = createContext(null)
 
-const useStore = () => useContext(Store)
+export const useStore = () => {
+    const context = useContext(StoreContext)
 
-const StateProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, initialState)
-    return <Store.Provider value={{state, dispatch}}>{children}</Store.Provider>
+    if (!context) {
+        throw new Error('useStore must be used within a StateProvider')
+    }
+
+    return context
 }
 
-export {useStore, StateProvider}
+export const StateProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(reducer, initialState)
+    const value = useMemo(() => ({ state, dispatch }), [state])
+
+    return (
+        <StoreContext.Provider value={value}>
+            {children}
+        </StoreContext.Provider>
+    )
+}

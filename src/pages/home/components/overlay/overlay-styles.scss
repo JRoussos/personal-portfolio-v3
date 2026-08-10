@@ -1,4 +1,4 @@
-@import '../../../../styles/variables';
+@use '@styles/abstracts/variables' as *;
 
 .text-overlay {
     position: fixed;
@@ -24,7 +24,7 @@
         cursor: pointer;
     
         text-decoration: underline;
-        color: $text_white_80;
+        color: rgba($color: $WHITE, $alpha: 0.8);
     }
 
     // Visible stand-in for :focus-visible on the visually-hidden project links —

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
-import { getScrollValue } from '../smoothScroll/SmoothScroll'
-import './marquee-style.scss'
+import { getScrollValue } from '@components/smoothScroll/SmoothScroll'
+
+import '@styles/components/_marquee.scss'
 
 // Pixels per second at playbackRate 1.
 const BASE_SPEED = 60
@@ -9,8 +10,24 @@ const RATE_SMOOTHING = 0.14
 const MAX_PLAYBACK_RATE = 10
 
 const Marquee = ({ text }) => {
+    const offsetRef = useRef(null)
     const containerRef = useRef(null)
     const trackRef = useRef(null)
+
+    // Break out of parent horizontal inset so the marquee spans the full viewport.
+    useEffect(() => {
+        const offsetRoot = offsetRef.current
+        if (!offsetRoot) return
+
+        const setOffset = () => {
+            const { x } = offsetRoot.getBoundingClientRect()
+            offsetRoot.children[0].style.transform = `translate3d(-${Math.abs(x)}px, 0, 0)`
+        }
+
+        setOffset()
+        window.addEventListener('resize', setOffset)
+        return () => window.removeEventListener('resize', setOffset)
+    }, [])
 
     useEffect(() => {
         const container = containerRef.current
@@ -106,17 +123,21 @@ const Marquee = ({ text }) => {
     const label = `${text} —`
 
     return (
-        <div ref={containerRef} className='marquee-container'>
-            <div ref={trackRef} className='marquee'>
-                <div className='marquee__segment'>
-                    <h1>{label}&nbsp;</h1>
-                    <h1 aria-hidden='true'>{label}&nbsp;</h1>
-                    <h1 aria-hidden='true'>{label}&nbsp;</h1>
-                </div>
-                <div className='marquee__segment' aria-hidden='true'>
-                    <h1>{label}&nbsp;</h1>
-                    <h1>{label}&nbsp;</h1>
-                    <h1>{label}&nbsp;</h1>
+        <div ref={offsetRef} className='marquee-offset'>
+            <div className='marquee-offset__inner'>
+                <div ref={containerRef} className='marquee'>
+                    <div ref={trackRef} className='marquee__track'>
+                        <div className='marquee__segment'>
+                            <h1 className='marquee__title'>{label}&nbsp;</h1>
+                            <h1 className='marquee__title' aria-hidden='true'>{label}&nbsp;</h1>
+                            <h1 className='marquee__title' aria-hidden='true'>{label}&nbsp;</h1>
+                        </div>
+                        <div className='marquee__segment' aria-hidden='true'>
+                            <h1 className='marquee__title'>{label}&nbsp;</h1>
+                            <h1 className='marquee__title'>{label}&nbsp;</h1>
+                            <h1 className='marquee__title'>{label}&nbsp;</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,41 @@
+@use '@styles/abstracts/variables' as *;
+@use '@styles/abstracts/functions' as *;
+@use '@styles/abstracts/mixins' as *;
+
+.marquee-offset {
+    &__inner {
+        width: 100vw;
+    }
+}
+
+.marquee {
+    overflow: hidden;
+    width: 100vw;
+
+    &__track {
+        display: flex;
+        width: max-content;
+        will-change: transform;
+
+        @media (prefers-reduced-motion: reduce) {
+            will-change: auto;
+            transform: none;
+        }        
+    }
+
+    &__segment {
+        display: flex;
+        flex-shrink: 0;
+    }
+
+    &__title {
+        color: rgba($color: $BLACK, $alpha: 0.8);
+        font-family: 'Italiana';
+        // font-size: dynamic(80px, 11vw, 11vw);
+        font-size: dynamic-size(200, 80, null, 11);
+        font-weight: 400;
+        margin: 50px 0;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+}

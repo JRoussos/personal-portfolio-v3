@@ -1,47 +1,75 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { gsap } from 'gsap'
-import imagesloaded from 'imagesloaded';
+import imagesLoaded from 'imagesloaded'
 
-import { photos } from '../../contexts/data';
-
-import './loading-style.scss'
+import { PHOTOS } from '@contexts/data'
+import '@styles/components/_image_load.scss'
 
 const Loading = ({ children }) => {
-    const [loadedImages, setLoadedImages] = useState(false)
-    const textRef = useRef(null)
+    const [isReady, setIsReady] = useState(false)
+
+    const imgLoadRef  = useRef(null)
+    const lineFillRef = useRef(null)
+    const preloadRef  = useRef(null)
 
     useEffect(() => {
-        const pictures = document.getElementById('preload-photos')
-        let progress = 0
+        if (!preloadRef.current) return
 
-        const imgLoad = imagesloaded( pictures, () => {
-            gsap.to('.loading-screen', {duration: 0.4, opacity: 0, delay: 1.5, ease: 'sine.out', onComplete: () => {
-                setLoadedImages(true)
-            }})
-        })
+        let loaded = 0
+        const ImagesLoaded = imagesLoaded(preloadRef.current)
 
-        imgLoad.on( 'progress', () => {
-            progress ++
-            const percentage = (progress / photos.length)
+        const handleProgress = () => {
+            loaded += 1
+            gsap.to(lineFillRef.current, {
+                scaleX: loaded / PHOTOS.length,
+                ease: 'sine.inOut',
+            })
+        }
 
-            gsap.to(textRef.current, { scaleX: percentage, ease: 'sine.inOut' })
-        })
-          
+        const handleComplete = () => {
+            gsap.to(imgLoadRef.current, {
+                duration: 0.4,
+                opacity: 0,
+                delay: 1.5,
+                ease: 'sine.out',
+                onComplete: () => setIsReady(true),
+            })
+        }
+
+        ImagesLoaded.on('progress', handleProgress)
+        ImagesLoaded.on('always', handleComplete)
+
+        return () => {
+            ImagesLoaded.off('progress', handleProgress)
+            ImagesLoaded.off('always', handleComplete)
+            gsap.killTweensOf([lineFillRef.current, imgLoadRef.current])
+        }
     }, [])
 
-    return loadedImages ? children : createPortal(
-        <div className='loading-screen'>
-            <div className='loading-line-wrapper'>
-                <div className='loading-line'>
-                    <span ref={textRef}></span>
+    if (isReady) return children
+
+    return createPortal(
+        <div ref={imgLoadRef} className='image-load'>
+            <div className='image-load__container'>
+                <div className='image-load__line'>
+                    <span ref={lineFillRef} className='image-load__line--fill' />
                 </div>
             </div>
-            <div id='preload-photos' style={{ visibility: 'hidden', position: 'fixed' }}>
-                {photos.map( src => <img src={src} key={src} alt='preloading'/>)}
+            <div
+                className='image-load__preload'
+                ref={preloadRef}
+                aria-hidden='true'
+                style={{ visibility: 'hidden', position: 'fixed' }}
+            >
+                {PHOTOS.map(src => (
+                    <img key={src} src={src} alt='' className='image-load__preload__img' loading='eager'/>
+                ))}
             </div>
-        </div>, document.getElementById('root'))
+        </div>,
+        document.body,
+    )
 }
 
 export default Loading

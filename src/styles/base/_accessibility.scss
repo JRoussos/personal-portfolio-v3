@@ -1,0 +1,56 @@
+/**
+ * Hide an element to all devices except screen readers with .sr-only.
+ * Combine .sr-only with .sr-only-focusable to show the element again when it’s focused (e.g. by a keyboard-only user).
+ */
+
+/**
+ * Keeps content available to screen readers and search engine crawlers
+ * without affecting the visual layout (e.g. WebGL-rendered text/links).
+ */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    -webkit-clip-path: none;
+    clip-path: none;
+}
+
+// Remove the default outline only for pointer/touch interactions, but keep a
+// visible focus ring for keyboard users (WCAG 2.4.7 Focus Visible).
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+*:focus-visible {
+    // currentColor keeps contrast reasonable on both the dark (home) and
+    // light (about/project) backgrounds used across the site.
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}

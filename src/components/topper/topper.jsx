@@ -1,11 +1,13 @@
 import { useEffect } from "react";
-import { scrollToImmediate } from "../smoothScroll/SmoothScroll";
+import { scrollToImmediate } from '@components/smoothScroll/SmoothScroll';
 
 const Topper = ({ children }) => {
-
   useEffect(() => {
-    if (window.history?.scrollRestoration) 
-        window.history.scrollRestoration = 'manual' 
+    
+    if (window.history?.scrollRestoration) {
+        window.history.scrollRestoration = 'manual'
+    }
+
     scrollToImmediate(0)
   }, [])
 

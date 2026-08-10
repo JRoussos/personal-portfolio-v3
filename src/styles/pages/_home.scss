@@ -1,0 +1,72 @@
+@use '@styles/abstracts/variables' as *;
+
+.desktop {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    &__header,
+    &__footer {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        z-index: 2;
+    }
+
+    &__header__title,
+    &__header__link {
+        color: rgba($color: $WHITE, $alpha: 0.8);
+        font-size: 16px;
+        font-weight: 400;
+        margin: 0;
+        text-decoration: none;
+
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+
+    &__navigation {
+        flex-grow: 1;
+    }
+
+    &__navigation__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    // Visible stand-in for :focus-visible on the visually-hidden project links —
+    // sits over the centered WebGL tile while Tab-navigating projects.
+    // Width matches layout / canvas content column (padding + max 1500).
+    &__project-focus-ring {
+        aspect-ratio: 2 / 1;
+        left: 50%;
+        max-height: 72vh;
+        outline: 2px solid rgba(255, 255, 255, 0.85);
+        outline-offset: 10px;
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        z-index: 3;
+    }
+
+    &__footer__socials {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+        margin: 0;
+    }
+
+    &__footer__copyright,
+    &__footer__social {
+        color: rgba($color: $WHITE, $alpha: 0.8);
+        font-size: 12px;
+        font-weight: 300;
+        margin: 0;
+        text-transform: uppercase;
+    }
+}

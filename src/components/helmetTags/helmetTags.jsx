@@ -6,7 +6,11 @@ const SITE_URL = 'https://johnroussos.dev'
 
 const MetaHelmet = ({ title, description, image }) => {
     const { pathname } = useLocation()
-    const canonicalUrl = `${SITE_URL}${pathname === '/' ? '' : pathname}`
+    
+    const canonicalUrl = `${SITE_URL}${pathname === '/' 
+        ? '' 
+        : pathname
+    }`
 
     return (
         <Helmet>

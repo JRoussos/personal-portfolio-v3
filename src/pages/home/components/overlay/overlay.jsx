@@ -6,7 +6,7 @@ import AbsolutePositions from './absolutePositions'
 import {
     clearScrollTarget,
     setScrollTarget,
-} from '../canvas/scrollBridge'
+} from '../../projects/scrollBridge'
 
 import data from '../../../../contexts/data'
 import { useStore } from '../../../../contexts/store'
@@ -20,7 +20,7 @@ const TextOverlay = () => {
     // Reversed so nav/Tab order matches the canvas scroll slots (0 = Chaos, …).
     const projects = useMemo(() => {
         return data.map(project => ({
-            id: project.id,
+            indx: project.index,
             path: project.path,
             name: project.name,
             desc: project.desc,
@@ -51,7 +51,7 @@ const TextOverlay = () => {
               that content as real links: Tab focuses them, and focus scrolls the
               matching 3D tile into view.
             */}
-            <nav className='visually-hidden' aria-label='Projects'>
+            <nav className='sr-only' aria-label='Projects'>
                 <ul>
                     {projects.map((project, index) => (
                         <li key={project.id}>

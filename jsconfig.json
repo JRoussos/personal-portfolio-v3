@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+            "@components/*": [
+                "./src/components/*"
+            ],
+            "@pages/*": [
+                "./src/pages/*"
+            ],
+            "@contexts/*": [
+                "./src/contexts/*"
+            ],
+            "@hooks/*": [
+                "./src/hooks/*"
+            ],
+            "@assets/*": [
+                "./src/assets/*"
+            ],
+            "@styles/*": [
+                "./src/styles/*"
+            ],
+            "@routes/*": [
+                "./src/routes/*"
+            ],
+            "@utils/*": [
+                "./src/utils/*"
+            ]
+        },
+        "jsx": "react-jsx",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "target": "ESNext",
+        "checkJs": false
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

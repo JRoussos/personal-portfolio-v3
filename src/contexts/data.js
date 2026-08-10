@@ -1,46 +1,48 @@
-import mosaica_0 from '../assets/imgs/banners/mosaica.jpg'
-import mosaica_1 from '../assets/imgs/projects/mosaica/mosaica (1).jpg'
-import mosaica_2 from '../assets/imgs/projects/mosaica/mosaica (2).jpg'
-import mosaica_3 from '../assets/imgs/projects/mosaica/mosaica (3).jpg'
-import mosaica_4 from '../assets/imgs/projects/mosaica/mosaica (4).jpg'
-import mosaica_5 from '../assets/imgs/projects/mosaica/mosaica (5).jpg'
+import mosaica_0 from '@assets/imgs/banners/mosaica.jpg'
+import mosaica_1 from '@assets/imgs/projects/mosaica/mosaica (1).jpg'
+import mosaica_2 from '@assets/imgs/projects/mosaica/mosaica (2).jpg'
+import mosaica_3 from '@assets/imgs/projects/mosaica/mosaica (3).jpg'
+import mosaica_4 from '@assets/imgs/projects/mosaica/mosaica (4).jpg'
+import mosaica_5 from '@assets/imgs/projects/mosaica/mosaica (5).jpg'
 
-import flowers_0 from '../assets/imgs/banners/flowers.jpg'
-import flowers_1 from '../assets/imgs/projects/flowers/flowers (1).png'
-import flowers_2 from '../assets/imgs/projects/flowers/flowers (2).png'
-import flowers_3 from '../assets/imgs/projects/flowers/flowers (3).png'
-import flowers_4 from '../assets/imgs/projects/flowers/flowers (4).png'
-import flowers_5 from '../assets/imgs/projects/flowers/flowers (5).png'
-import flowers_6 from '../assets/imgs/projects/flowers/flowers (6).png'
+import flowers_0 from '@assets/imgs/banners/flowers.jpg'
+import flowers_1 from '@assets/imgs/projects/flowers/flowers (1).png'
+import flowers_2 from '@assets/imgs/projects/flowers/flowers (2).png'
+import flowers_3 from '@assets/imgs/projects/flowers/flowers (3).png'
+import flowers_4 from '@assets/imgs/projects/flowers/flowers (4).png'
+import flowers_5 from '@assets/imgs/projects/flowers/flowers (5).png'
+import flowers_6 from '@assets/imgs/projects/flowers/flowers (6).png'
 
-import learning_0 from '../assets/imgs/banners/learning.jpg'
-import learning_1 from '../assets/imgs/projects/learning/learning (1).jpg'
-import learning_2 from '../assets/imgs/projects/learning/learning (2).jpg'
-import learning_3 from '../assets/imgs/projects/learning/learning (3).mp4'
-import learning_4 from '../assets/imgs/projects/learning/learning (4).jpg'
-import learning_5 from '../assets/imgs/projects/learning/learning (5).mp4'
+import learning_0 from '@assets/imgs/banners/learning.jpg'
+import learning_1 from '@assets/imgs/projects/learning/learning (1).jpg'
+import learning_2 from '@assets/imgs/projects/learning/learning (2).jpg'
+import learning_3 from '@assets/imgs/projects/learning/learning (3).mp4'
+import learning_4 from '@assets/imgs/projects/learning/learning (4).jpg'
+import learning_5 from '@assets/imgs/projects/learning/learning (5).mp4'
 
-import lorenz_0 from '../assets/imgs/banners/nlorenz.png'
-import lorenz_1 from '../assets/imgs/projects/lorenz/lorenz (Custom).png'
-import lorenz_2 from '../assets/imgs/projects/lorenz/lorenz (2).png'
-import lorenz_3 from '../assets/imgs/projects/lorenz/lorenz (3).png'
-import lorenz_4 from '../assets/imgs/projects/lorenz/lorenz (4).png'
-import lorenz_5 from '../assets/imgs/projects/lorenz/lorenz (5).png'
-import lorenz_6 from '../assets/imgs/projects/lorenz/lorenz (6).png'
+import lorenz_0 from '@assets/imgs/banners/nlorenz.png'
+import lorenz_1 from '@assets/imgs/projects/lorenz/lorenz (Custom).png'
+import lorenz_2 from '@assets/imgs/projects/lorenz/lorenz (2).png'
+import lorenz_3 from '@assets/imgs/projects/lorenz/lorenz (3).png'
+import lorenz_4 from '@assets/imgs/projects/lorenz/lorenz (4).png'
+import lorenz_5 from '@assets/imgs/projects/lorenz/lorenz (5).png'
+import lorenz_6 from '@assets/imgs/projects/lorenz/lorenz (6).png'
 
-import profile from '../assets/imgs/myself.jpg'
+import profile from '@assets/imgs/myself-edit.jpg'
+import desert from '@assets/imgs/desert.jpg'
 
-export const photos = [
+export const PHOTOS = [
     profile,
-    mosaica_0, mosaica_1, mosaica_2, mosaica_3, mosaica_4, mosaica_5, 
+    desert,
+    mosaica_0, mosaica_1, mosaica_2, mosaica_3, mosaica_4, mosaica_5,
     flowers_0, flowers_1, flowers_2, flowers_3, flowers_4, flowers_5, flowers_6,
     learning_0, learning_1, learning_2, learning_5, learning_4,
     lorenz_0, lorenz_1, lorenz_2, lorenz_3, lorenz_5, lorenz_6
 ]
 
-const data = [
-    {
-        id: 'yNoTP',
+export const PROJECTS = {
+    mosaica: {
+        index: 1,
         name: "Mosaica",
         fullname: "Mosaica",
         desc: "CLI to generate mosaics from a set of photos",
@@ -49,7 +51,7 @@ const data = [
             "The basic idea is simple: we calculate the average RGB values of a certain area of the image. Then, we process those average values and find an image that better matches each color."
         ],
         path: 'mosaica',
-        media: {        
+        media: {
             picture: mosaica_0,
             l1: mosaica_1,
             l2: mosaica_2,
@@ -60,33 +62,38 @@ const data = [
         layout: [
             [
                 {
-                    image: mosaica_1,
+                    src: mosaica_1,
                     aspect: 7.549,
-                    percentage: '100%'
+                    percentage: '100%',
+                    type: 'image'
                 }
             ],
             [
                 {
-                    image: mosaica_2,
+                    src: mosaica_2,
                     aspect: 2.032,
-                    percentage: '45.93%'
+                    percentage: '45.93%',
+                    type: 'image'
                 },
                 {
-                    image: mosaica_3,
+                    src: mosaica_3,
                     aspect: 2.292,
-                    percentage: '51.82%'
+                    percentage: '51.82%',
+                    type: 'image'
                 }
             ],
             [
                 {
-                    image: mosaica_4,
+                    src: mosaica_4,
                     aspect: 1.225,
-                    percentage: '33.64%'
+                    percentage: '33.64%',
+                    type: 'image'
                 },
                 {
-                    image: mosaica_5,
+                    src: mosaica_5,
                     aspect: 2.375,
-                    percentage: '65.20%'
+                    percentage: '65.20%',
+                    type: 'image'
                 }
             ]
         ],
@@ -95,10 +102,12 @@ const data = [
                 title: 'Github repository',
                 url: "https://github.com/JRoussos/mosaic-generator"
             }
-        ]
+        ],
+        next: 'flowers',
+        prev: 'chaos',
     },
-    {
-        id: 'p9rbW',
+    flowers: {
+        index: 2,
         name: "Flowers",
         fullname: "Flowers",
         desc: "Splitting images into animated particles",
@@ -119,56 +128,64 @@ const data = [
         layout: [
             [
                 {
-                    image: flowers_1,
+                    src: flowers_1,
                     aspect: 1.634,
-                    percentage: '45.36%'
+                    percentage: '45.36%',
+                    type: 'image'
                 },
                 {
-                    image: flowers_2,
+                    src: flowers_2,
                     aspect: 1.909,
-                    percentage: '53.02%'
+                    percentage: '53.02%',
+                    type: 'image'
                 }
             ],
             [
                 {
-                    image: flowers_3,
+                    src: flowers_3,
                     aspect: 4.183,
-                    percentage: '100%'
+                    percentage: '100%',
+                    type: 'image'
                 }
             ],
             [
                 {
-                    image: flowers_4,
+                    src: flowers_4,
                     aspect: 1.956,
-                    percentage: '64.58%'
+                    percentage: '64.58%',
+                    type: 'image'
                 },
                 {
-                    image: flowers_5,
+                    src: flowers_5,
                     aspect: 1,
-                    percentage: '33.28%'
+                    percentage: '33.28%',
+                    type: 'image'
                 }
             ],
             [
                 {
-                    image: flowers_6,
+                    src: flowers_6,
                     aspect: 3.535,
-                    percentage: '100%'
+                    percentage: '100%',
+                    type: 'image'
                 }
             ],
         ],
         links: [
-            {   
-                title: 'Visit website', 
+            {
+                title: 'Visit website',
                 url: "https://some-flowers-for-you.netlify.app/"
             },
             {
                 title: 'Github repository',
                 url: "https://github.com/JRoussos/a-reactive-particle-system"
             }
-        ]
+        ],
+        next: 'journey',
+        prev: 'mosaica',
     },
-    {
-        id: '0K8g2',
+    journey: {
+        index: 3,
         name: "Journey",
         fullname: "Journey",
         desc: "A collection of small Three JS projects",
@@ -176,8 +193,8 @@ const data = [
             "Some time ago, I saw an example of a website using the WebGL library and was captivated. I was extremely interested in learning this new thing, so I started researching it.",
             "I read about GLSL, Three.js, and shaders, and now that I have a basic understanding of the concept, it's time to start practicing. This is a collection of cool ideas and stuff I wanted to try and learn as far as 3D web design goes."
         ],
-        path: 'journey',        
-        media: {        
+        path: 'journey',
+        media: {
             picture: learning_0,
             l1: learning_1,
             l2: learning_2,
@@ -187,49 +204,56 @@ const data = [
         layout: [
             [
                 {
-                    image: learning_1,
+                    src: learning_1,
                     aspect: 1.482,
-                    percentage: '48.95%'
+                    percentage: '48.95%',
+                    type: 'image'
                 },
                 {
-                    image: learning_2,
+                    src: learning_2,
                     aspect: 1.498,
-                    percentage: '49.47%'
+                    percentage: '49.47%',
+                    type: 'image'
                 }
             ],
             [
                 {
-                    image: learning_3,
+                    src: learning_3,
                     aspect: 5.597,
-                    percentage: '100%'
+                    percentage: '100%',
+                    type: 'video'
                 }
             ],
             [
                 {
-                    image: learning_4,
+                    src: learning_4,
                     aspect: 0.878,
-                    percentage: '30.83%'
+                    percentage: '30.83%',
+                    type: 'image'
                 },
                 {
-                    image: learning_5,
+                    src: learning_5,
                     aspect: 1.910,
-                    percentage: '67.08%'
+                    percentage: '67.08%',
+                    type: 'video'
                 }
             ],
         ],
         links: [
-            {   
-                title: 'Visit website', 
+            {
+                title: 'Visit website',
                 url: "https://learning-three-js.netlify.app/"
             },
             {
                 title: 'Github repository',
                 url: "https://github.com/JRoussos/learning-three-js"
             }
-        ]
+        ],
+        next: 'chaos',
+        prev: 'flowers',
     },
-    {
-        id: 'cMZtH',
+    chaos: {
+        index: 4,
         name: "Chaos",
         fullname: "Chaos",
         desc: "A visualization of the 'The Butterfly Effect'",
@@ -238,7 +262,7 @@ const data = [
             "Lorenz found that if you have a system with some initial values that are basically the same, but only have the tiniest deviation from one another, as time passes, those tiny differences scale up, and after a few iterations, the values end up completely unrelated and with their own trajectory."
         ],
         path: 'chaos',
-        media: {        
+        media: {
             picture: lorenz_0,
             l2: lorenz_2,
             l3: lorenz_3,
@@ -249,52 +273,87 @@ const data = [
         layout: [
             [
                 {
-                    image: lorenz_1,
+                    src: lorenz_1,
                     aspect: 2.612,
-                    percentage: '65.58%'
+                    percentage: '65.58%',
+                    type: 'image'
                 },
                 {
-                    image: lorenz_4,
+                    src: lorenz_4,
                     aspect: 1.307,
-                    percentage: '34.42%'
+                    percentage: '34.42%',
+                    type: 'image'
                 }
             ],
             [
                 {
-                    image: lorenz_2,
+                    src: lorenz_2,
                     aspect: 1.965,
-                    percentage: '42.75%'
+                    percentage: '42.75%',
+                    type: 'image'
                 },
                 {
-                    image: lorenz_5,
+                    src: lorenz_5,
                     aspect: 2.731,
-                    percentage: '57.25%'
+                    percentage: '57.25%',
+                    type: 'image'
                 }
             ],
             [
                 {
-                    image: lorenz_3,
+                    src: lorenz_3,
                     aspect: 2.134,
-                    percentage: '67.13%'
+                    percentage: '67.13%',
+                    type: 'image'
                 },
                 {
-                    image: lorenz_6,
+                    src: lorenz_6,
                     aspect: 1,
-                    percentage: '32.87%'
+                    percentage: '32.87%',
+                    type: 'image'
                 }
             ],
         ],
         links: [
-            {   
-                title: 'Visit website', 
+            {
+                title: 'Visit website',
                 url: "https://lorenz-attractor-visualization.netlify.app"
             },
             {
                 title: 'Github repository',
                 url: "https://github.com/JRoussos/lorenz-attractor"
             }
-        ]
+        ],
+        next: 'mosaica',
+        prev: 'journey',
     }
-]
+}
 
-export default data;
+export const SOCIALS = {
+    gm: {
+        name: 'e-mail',
+        handle: 'jroussosdev@gmail.com',
+        url: 'mailto:jroussosdev@gmail.com',
+        title: 'E-mail'
+    },
+    x: {
+        name: 'x',
+        handle: '@giannhs_r',
+        title: 'X (Twitter)',
+        url: 'https://x.com/giannhs_r',
+    },
+    ig: {
+        name: 'ig',
+        handle: '@giannhs_r',
+        title: 'Instagram',
+        url: 'https://www.instagram.com/giannhs_r',
+    },
+    gh: {
+        name: 'gh',
+        handle: '@JRoussos',
+        title: 'Github',
+        url: 'https://www.github.com/JRoussos',
+    }
+}
+
+

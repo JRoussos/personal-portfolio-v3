@@ -1,14 +1,16 @@
-import React from 'react'
-import './backBtn-styles.scss'
+import { Link } from 'react-router-dom'
+import '@styles/components/_back_button.scss'
 
-const BackBtn = () => {
+const BackBtn = (props) => {
     return (
-        <div className='back-btn'>
-            <div className='container'> 
-                <span className='cross'></span>
-                <span className='cross'></span>
+        <Link to={'/'} replace aria-label="Back to home" {...props}>
+            <div className='back-btn'>
+                <div className='back-btn__container'> 
+                    <span className='back-btn__cross'></span>
+                    <span className='back-btn__cross'></span>
+                </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

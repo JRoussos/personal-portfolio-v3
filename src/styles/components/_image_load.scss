@@ -1,0 +1,32 @@
+@use '@styles/abstracts/variables' as *;
+@use '@styles/abstracts/mixins' as *;
+
+.image-load {
+    @include flex-center;
+
+    background: $BACKGROUND_DARK;
+    inset: 0;
+    position: fixed;
+    z-index: 1002;
+
+    &__container {
+        transform-origin: right;
+        padding: 10px 0;
+        width: 100px;
+    }
+
+    &__line {
+        background-color: rgba($color: $WHITE, $alpha: 0.2);
+        height: 1px;
+        position: relative;
+        width: 100%;
+    }
+
+    &__line--fill {
+        background-color: rgba($color: $WHITE, $alpha: 0.6);
+        inset: 0;
+        position: absolute;
+        transform-origin: left;
+        transform: scaleX(0);
+    }
+}

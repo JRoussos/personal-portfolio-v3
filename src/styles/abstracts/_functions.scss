@@ -1,0 +1,46 @@
+@use "sass:color";
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
+
+@function value-as-px($value) {
+    @return calc($value * 1px);
+}
+
+@function dynamic-size($value, $min-value: null, $max-value: null, $scaler: 0.2, $target-window-width: 1920) {
+
+    @if math.unit($value) == "px" {
+        $value: math.div($value, 1px);
+    } @else if math.unit($value) != "" {
+        @error "dynamic-size: `$value` must be unitless or px.";
+    }
+
+    @if $min-value != null and math.unit($min-value) == "px" {
+        $min-value: math.div($min-value, 1px);
+    }
+
+    @if $max-value != null and math.unit($max-value) == "px" {
+        $max-value: math.div($max-value, 1px);
+    }
+
+    $fluid: null;
+
+    @if $min-value != null {
+        $range: $value - $min-value;
+        $fluid: calc(#{$min-value}px + #{math.div($range, $target-window-width) * 100}vw);
+    } @else {
+        $modifier: math.div($value, $target-window-width) * $scaler;
+        $offset: $value * (1 - $scaler);
+        $fluid: calc(#{$offset}px + #{$modifier * 100}vw);
+    }
+
+    @if $min-value != null and $max-value != null {
+        @return string.unquote("clamp(#{$min-value}px, #{$fluid}, #{$max-value}px)");
+    }
+
+    @if $max-value != null {
+        @return string.unquote("min(#{$fluid}, #{$max-value}px)");
+    }
+
+    @return $fluid;
+}

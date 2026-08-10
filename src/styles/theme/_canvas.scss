@@ -1,0 +1,29 @@
+@use '@styles/abstracts/mixins' as *;
+
+.canvas {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    inset: 0;
+    position: fixed;
+    padding: 0 30px;
+
+    @include breakpoint-max(1500px) {
+        padding: 0 25px;
+    }
+    
+    @include breakpoint-max(1100px) {
+        padding: 0 20px;
+    }
+    
+    @include breakpoint-max(780px) {
+        padding: 0 15px;
+    }
+
+    &__content {
+        height: 100%;
+        max-width: 1500px;
+        position: relative;
+        width: 100%;
+    }
+}

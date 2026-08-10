@@ -1,0 +1,34 @@
+@use '@styles/abstracts/variables' as *;
+@use '@styles/abstracts/mixins' as *;
+
+.back-btn {
+    height: 20px;
+    position: relative;
+    width: 20px;
+
+    &:hover &__container {
+        transform: rotate(90deg);
+    }
+
+    &__container {
+        @include flex-center;
+        height: 100%;
+        transition: transform $TRANSITION_DURATION $TRANSITION_EASE;        
+        width: 100%;
+    }
+
+    &__cross {
+        background: rgba($color: $BLACK, $alpha: 0.8); 
+        height: 2px;
+        position: absolute;
+        width: 100%;
+    }
+
+    &__cross:first-child {
+        transform: rotateZ(45deg);
+    }
+
+    &__cross:last-child {
+        transform: rotateZ(-45deg);
+    }
+}

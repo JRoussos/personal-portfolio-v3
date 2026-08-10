@@ -1,0 +1,38 @@
+@use '@styles/abstracts/variables' as *;
+@use '@styles/abstracts/mixins' as *;
+
+.bubble {
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+
+    &:hover &__arrow {
+        transform: translate3d(8px, 0, 0);
+    }
+
+    &__arrow {
+        display: inline-block; 
+        transition: transform $TRANSITION_DURATION $TRANSITION_EASE;
+        width: 13px;
+        will-change: transform;
+
+        svg {
+            height: auto; 
+            margin-left: 10px;
+            transform: translateY(2px) scale(0.8);
+            width: 100%; 
+        }
+    }
+
+    &__content {
+        border: 1px solid rgba($color: $BLACK, $alpha: 0.45);
+        border-radius: 50px;
+        flex: 1 0 auto;
+        overflow: hidden;
+        padding: 8px min(max(10px, 6.429vw), 40px);
+        position: relative;
+        max-width: fit-content;
+    }
+}

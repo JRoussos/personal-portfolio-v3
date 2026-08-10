@@ -1,0 +1,18 @@
+@use '@styles/abstracts/variables' as *;
+
+:root {
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    user-select: none;
+    
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+body {
+    background: $BACKGROUND_DARK;
+}

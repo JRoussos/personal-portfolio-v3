@@ -5,7 +5,6 @@ import Loading from './components/loading/loading'
 import Switch from './routes/switch';
 
 const App = () => {
-    
     return (
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <Loading>

@@ -1,0 +1,117 @@
+@use '../abstracts/variables' as *;
+
+@use 'sass:map';
+@use 'sass:list';
+
+// Fixed width breakpoint
+@mixin breakpoint-fixed($size) {
+    @media only screen and (width: $size) {
+        @content;
+    }
+}
+
+// Min-width breakpoint
+@mixin breakpoint-min($size) {
+    @media only screen and (min-width: $size) {
+        @content;
+    }
+}
+
+// Max-width breakpoint
+@mixin breakpoint-max($size) {
+    @media only screen and (max-width: $size) {
+        @content;
+    }
+}
+
+// Min and Max width breakpoint
+@mixin breakpoint-between($size-min, $size-max) {
+    @media only screen and (min-width: $size-min) and (max-width: $size-max) {
+        @content;
+    }
+}
+
+// Natural language width breakpoints
+// @param {'desktop_large'|'desktop'|'tablet'|'tablet_mobile'|'mobile'|'mobile_large'} $point
+@mixin breakpoint($point) {
+    // $desktop-large => 1440px
+    @if $point == desktop_large {
+        @include breakpoint-max($desktop-large) {
+            @content;
+        }
+    }
+
+    // $desktop => 1024px
+    @else if $point == desktop {
+        @include breakpoint-max($desktop) {
+            @content;
+        }
+    }
+
+    // $tablet-large => 860px
+    @else if $point == tablet_large {
+        @include breakpoint-max($tablet-large) {
+            @content;
+        }
+    }
+
+    // $tablet => 768px
+    @else if $point == tablet {
+        @include breakpoint-max($tablet) {
+            @content;
+        }
+    }
+
+    // $mobile-large => 480px
+    @else if $point == mobile_large {
+        @include breakpoint-max($mobile-large) {
+            @content;
+        }
+    }
+
+    // $mobile => 320px
+    @else if $point == mobile {
+        @include breakpoint-max($mobile) {
+            @content;
+        }
+    }
+
+    @else {
+        @error "Invalid breakpoint: #{$point}.";
+    }
+}
+
+// Center elements in a flexbox
+@mixin flex-center($direction:row) {
+    align-items: center;
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+}
+
+// Truncate text with ellipsis
+@mixin truncate() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin reset-button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+
+    &::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+}
