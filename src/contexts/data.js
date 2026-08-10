@@ -340,19 +340,19 @@ export const SOCIALS = {
         name: 'x',
         handle: '@giannhs_r',
         title: 'X (Twitter)',
-        url: 'https://x.com/giannhs_r',
+        url: 'https://x.com/giannhs_r/',
     },
     ig: {
         name: 'ig',
         handle: '@giannhs_r',
         title: 'Instagram',
-        url: 'https://www.instagram.com/giannhs_r',
+        url: 'https://www.instagram.com/giannhs_r/',
     },
     gh: {
         name: 'gh',
         handle: '@JRoussos',
         title: 'Github',
-        url: 'https://www.github.com/JRoussos',
+        url: 'https://www.github.com/JRoussos/',
     }
 }
 

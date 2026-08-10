@@ -78,8 +78,18 @@ const Project = () => {
                                                 muted 
                                                 loop 
                                                 playsInline 
+                                                preload="metadata"
                                                 aria-label={`${PROJECT_DATA.fullname} preview video ${columnIndex + 1}`}
                                                 className='project__image-grid__item__video'
+                                                ref={(el) => {
+                                                    if (!el) return
+                                                    // React's muted attr is unreliable on iOS; set the property + kick play.
+                                                    el.muted = true
+                                                    el.defaultMuted = true
+                                                    el.playsInline = true
+                                                    const play = el.play()
+                                                    if (play?.catch) play.catch(() => {})
+                                                }}
                                             />
                                         : <img 
                                                 src={column.src} 

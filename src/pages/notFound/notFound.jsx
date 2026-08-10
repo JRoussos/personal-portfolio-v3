@@ -9,7 +9,9 @@ import desert from '@assets/imgs/desert.jpg'
 import '@styles/pages/_not_found.scss'
 
 const GET_RANDOM_PROJECT = () => {
-    return PROJECTS[Math.floor(Math.random() * PROJECTS.length)]
+    return Object.values(PROJECTS)[
+        Math.floor(Math.random() * Object.keys(PROJECTS).length)
+    ]
 }
 
 const SEO = {
@@ -25,8 +27,8 @@ const DATA = {
 
 const CONTENT = {
     title: '404',
-    text: 'This page seems to have gotten lost.',
-    description: 'The link you followed may be broken or the page may have been moved. You can go back to the homepage or check out this project that I made.',
+    text: 'This page seems to have gotten lost..',
+    description: 'The link you followed may be broken or the page may have been moved. You can go back to the homepage or check out one of the projects that I made.',
 }
 
 const NotFound = () => {
@@ -57,7 +59,7 @@ const NotFound = () => {
                                         Home
                                     </BubbleLink>
                                     <BubbleLink to={`/project/${GET_RANDOM_PROJECT().path}`}>
-                                        Check this project
+                                        Check out a project
                                     </BubbleLink>
                                 </div>
                             </div>

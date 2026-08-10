@@ -4,6 +4,7 @@
 }
 
 @keyframes fadeOut {
+    // Avoid perspective() — iOS Safari often skips or drops animationend for 3D perspective transforms.
     0%   { opacity: 1; transform: translate3d(0, 0, 0) }
-    100% { opacity: 0; transform: perspective(500px) translate3d(0, -30px, 5px ) }
+    100% { opacity: 0; transform: translate3d(0, -24px, 0) }
 }

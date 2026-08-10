@@ -31,9 +31,7 @@
         margin: 50px 0;
 
         @include breakpoint-max(1100px) {
-            &:not(:has(.desktop)) {
-                margin-bottom: 0;
-            }
+            margin-bottom: 0;
         }
     }
 

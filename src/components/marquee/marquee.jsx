@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { isMobile } from 'react-device-detect'
 import { getScrollValue } from '@components/smoothScroll/SmoothScroll'
 
 import '@styles/components/_marquee.scss'
@@ -44,23 +45,31 @@ const Marquee = ({ text }) => {
         let visible = true
         let rafId = 0
         let lastTs = performance.now()
+        // Mobile uses native scroll (no Lenis) — keep a steady speed instead of
+        // coupling playbackRate to scroll velocity.
+        const scrollLinked = !isMobile
 
         const syncAnimation = () => {
             const loopWidth = segment.offsetWidth
             if (!loopWidth) return
 
             const duration = (loopWidth / BASE_SPEED) * 1000
+            // Prefer currentTime over getComputedTiming().progress — more reliable
+            // across Safari when recreating the animation.
+            const prevTime = animation?.currentTime ?? 0
+            const prevDuration = animation?.effect?.getTiming?.()?.duration || duration
             const prevProgress =
-                animation?.effect?.getComputedTiming?.()?.progress ?? 0
+                typeof prevTime === 'number' && prevDuration
+                    ? (prevTime / prevDuration) % 1
+                    : 0
 
             animation?.cancel()
-            // -50% is half the track (one segment). Keeps the loop seamless
-            // without measuring or writing a pixel transform every frame —
-            // the browser can run this on the compositor.
+            // Pixel translate (not -50%): Safari iOS Web Animations often fail to
+            // resolve percentage transforms, so the track never moves.
             animation = track.animate(
                 [
                     { transform: 'translate3d(0, 0, 0)' },
-                    { transform: 'translate3d(-50%, 0, 0)' },
+                    { transform: `translate3d(${-loopWidth}px, 0, 0)` },
                 ],
                 {
                     duration,
@@ -94,6 +103,8 @@ const Marquee = ({ text }) => {
         const resizeObserver = new ResizeObserver(syncAnimation)
         resizeObserver.observe(segment)
         syncAnimation()
+        // Web fonts often resolve after first layout on iOS; rebuild once metrics are ready.
+        document.fonts?.ready?.then?.(syncAnimation)
 
         const intersectionObserver = new IntersectionObserver(
             ([entry]) => {
@@ -110,7 +121,7 @@ const Marquee = ({ text }) => {
         )
         intersectionObserver.observe(container)
 
-        rafId = requestAnimationFrame(onFrame)
+        if (scrollLinked) rafId = requestAnimationFrame(onFrame)
 
         return () => {
             resizeObserver.disconnect()

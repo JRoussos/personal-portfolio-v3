@@ -1,15 +1,22 @@
 .route-transition {
     &__svg {
-        height: 100vh;        
+        // dvh avoids iOS Safari address-bar gaps/crops from classic 100vh.
+        height: 100vh;
+        height: 100dvh;
         inset: 0;
+        left: 0;
         pointer-events: none;
         position: fixed;
-        width: 100vw;
+        top: 0;
+        // force3D / translateZ keeps path morphs painting on Safari.
+        transform: translateZ(0);
+        width: 100%;
         z-index: 100;
     }
 
     &__path {
-        will-change: d;
+        // `will-change: d` is invalid in Safari and can suppress paints.
+        vector-effect: non-scaling-stroke;
     }
 
     &__fadeIn {
@@ -19,6 +26,6 @@
     
     &__fadeOut {
         opacity: 1;
-        animation: fadeOut 1.0s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards; //  cubic-bezier(0.445, 0.05, 0.55, 0.95)
+        animation: fadeOut 1.0s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
     }
 }
