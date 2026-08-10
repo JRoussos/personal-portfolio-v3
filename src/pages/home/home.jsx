@@ -12,8 +12,6 @@ import { SASS_VARIABLES } from '@utils/sass-variables'
 const Desktop = loadable(() => import('./desktop/desktop'))
 // const Mobile  = loadable(() => import('./components/mobile/mobile'))
 
-console.log(SASS_VARIABLES)
-
 const Home = () => {
     return (
         <Layout
