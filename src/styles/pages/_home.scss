@@ -1,6 +1,6 @@
 @use '@styles/abstracts/variables' as *;
 
-.desktop {
+.home {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -41,11 +41,9 @@
     // sits over the centered WebGL tile while Tab-navigating projects.
     // Width matches layout / canvas content column (padding + max 1500).
     &__project-focus-ring {
-        aspect-ratio: 2 / 1;
+        height: calc(15% / tan(12deg));
         left: 50%;
-        max-height: 72vh;
-        outline: 2px solid rgba(255, 255, 255, 0.85);
-        outline-offset: 10px;
+        outline: 2px solid rgba($WHITE, 0.85);
         pointer-events: none;
         position: absolute;
         top: 50%;

@@ -1,0 +1,114 @@
+@use '@styles/abstracts/variables' as *;
+
+// CSS stand-in for the WebGL project scroller (tiles + Text3D titles).
+//
+// Camera: fov 24°, z = 100 → visibleHeight = 2 * tan(12deg) * 100
+// Plane geometry height: 30  → tile = 30 / visibleHeight of the viewport
+// Tile spacing: 32          → gap  =  2 / visibleHeight of the viewport
+// Text3D size: 3.4, scaleY 1.2, letterSpacing -0.28, group y -2.5
+
+.reduced {
+    // Shared shell with `.canvas` (padding / max-width) lives in theme/_canvas.scss
+    // Sit above the home shell, under header/footer (z-index: 2)
+    z-index: 1;
+
+    &__content {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__navigation__list {
+        display: flex;
+        flex-direction: column;
+        // World gap of 2 units between 30-tall planes
+        gap: calc(1dvh / tan(12deg));
+        list-style: none;
+        margin: 0;
+        // Let first / last tiles snap to viewport center like the WebGL scene
+        padding: calc((100dvh - (15dvh / tan(12deg))) / 2) 0;
+    }
+
+    &__navigation__item {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
+    &__navigation__link {
+        color: inherit;
+        display: block;
+        position: relative;
+        text-decoration: none;
+
+        // Override global `*:focus-visible` — ring is drawn inset via ::after
+        // so overflow-x on `__content` can't clip the left/right edges.
+        &:focus,
+        &:focus-visible {
+            outline: none;
+        }
+
+        &:focus-visible::after {
+            border: 2px solid rgba($WHITE, 0.85);
+            content: '';
+            inset: 0;
+            pointer-events: none;
+            position: absolute;
+            z-index: 1;
+        }
+    }
+
+    &__project {
+        position: relative;
+        width: 100%;
+    }
+
+    // Matches planeGeometry height 30 at camera z=100 / fov 24
+    &__project__media {
+        height: calc(15dvh / tan(12deg));
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+
+    // Shader uses cover UVs against IMAGE_ASPECT_RATIO 2.0
+    &__project__image {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        pointer-events: none;
+        user-select: none;
+        width: 100%;
+    }
+
+    // Text3D: Italiana, size 3.4, letterSpacing -0.28, scaleY 1.2,
+    // AdditiveBlending, opacity ~0.75 when centered, group y -2.5
+    &__project__title {
+        color: rgba($WHITE, 0.75);
+        font-size: calc(1.7dvh / tan(12deg));
+        font-weight: 400;
+        left: 50%;
+        line-height: 1;
+        margin: 0;
+        mix-blend-mode: screen;
+        mix-blend-mode: plus-lighter;
+        pointer-events: none;
+        position: absolute;
+        text-align: center;
+        text-transform: uppercase;
+        // Nudge down by the Text3D group offset (-2.5 world units)
+        // top: calc(50% + (1.25dvh / tan(12deg)));
+        top: 50%;
+        transform: translate(-50%, -50%) scaleY(1.2);
+        white-space: nowrap;
+        width: max-content;
+    }
+}

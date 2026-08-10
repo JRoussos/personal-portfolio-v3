@@ -13,6 +13,7 @@ const About     = loadable(() => import('@pages/about/about'))
 const Project   = loadable(() => import('@pages/project/project'))
 const NotFound  = loadable(() => import('@pages/notFound/notFound'))
 
+import usePrefersReducedMotion from '@hooks/usePrefersReducedMotion'
 import { SASS_VARIABLES } from '@utils/sass-variables'
 
 // Matches .route-transition__fadeOut duration — Safari fallback if animationend is dropped.
@@ -20,6 +21,8 @@ const FADE_OUT_MS = 1000
 
 const Switch = () => {
     const routerLocation = useLocation()
+
+    const reducedMotion = usePrefersReducedMotion()
 
     const [currentLocation, setCurrentLocation] = useState(routerLocation)
     const [transitionState, setTransitionState] = useState("route-transition__fadeIn")
@@ -60,19 +63,19 @@ const Switch = () => {
     useEffect(() => {
         if (routerLocation === currentLocation) return
 
-        // if (skipTransition) {
-        //     isFadingOutRef.current = false
+        if (reducedMotion) {
+            isFadingOutRef.current = false
             
-        //     if (fadeOutFallbackRef.current) {
-        //         clearTimeout(fadeOutFallbackRef.current)
-        //         fadeOutFallbackRef.current = null
-        //     }
+            if (fadeOutFallbackRef.current) {
+                clearTimeout(fadeOutFallbackRef.current)
+                fadeOutFallbackRef.current = null
+            }
             
-        //     setCurrentLocation(routerLocation)
-        //     setBodyStyle(routerLocation.pathname)
+            setCurrentLocation(routerLocation)
+            setBodyStyle(routerLocation.pathname)
             
-        //     return
-        // }
+            return
+        }
 
         isFadingOutRef.current = true
         setTransitionState('route-transition__fadeOut')
@@ -87,7 +90,7 @@ const Switch = () => {
                 fadeOutFallbackRef.current = null
             }
         }
-    }, [routerLocation, currentLocation, skipTransition, setBodyStyle, completeFadeOut])
+    }, [routerLocation, currentLocation, skipTransition, reducedMotion, setBodyStyle, completeFadeOut])
 
     const handleAnimationEnd = (event) => {
         // Ignore bubbled animationend from nested elements (marquee, links, etc.).
@@ -99,14 +102,17 @@ const Switch = () => {
 
     return (
         <SmoothScroll isMobile={isMobile} reload={[currentLocation]}>
-            <div className={transitionState} onAnimationEnd={handleAnimationEnd}>
+            <div 
+                className={reducedMotion ? undefined : transitionState}
+                onAnimationEnd={reducedMotion ? undefined : handleAnimationEnd}
+            >
                 <Routes location={currentLocation} key={currentLocation.key}>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/project/:name" element={<Project />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
-                {routerLocation !== currentLocation && !skipTransition && (
+                {routerLocation !== currentLocation && !skipTransition && !reducedMotion && (
                     <Transition path={routerLocation.pathname} />
                 )}
             </div>

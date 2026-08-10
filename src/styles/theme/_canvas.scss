@@ -1,6 +1,7 @@
 @use '@styles/abstracts/mixins' as *;
 
-.canvas {
+.canvas,
+.reduced {
     box-sizing: border-box;
     display: flex;
     justify-content: center;
