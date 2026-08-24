@@ -8,6 +8,17 @@
     overflow: hidden;
     text-decoration: none;
 
+    &:focus,
+    &:focus-visible {
+        outline: none;
+    }
+
+    &:focus-visible &__content {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+        border-radius: 50px;
+    }
+
     &:hover &__arrow {
         transform: translate3d(8px, 0, 0);
     }

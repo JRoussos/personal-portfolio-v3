@@ -44,7 +44,7 @@ const Project = () => {
                     <ul className='project__links__list'>
                         {PROJECT_DATA.links.map(link => (
                             <li key={link.title} className='project__link'>
-                                <BubbleLink key={link.title} href={link.url}>{link.title}</BubbleLink>
+                                <BubbleLink key={link.title} href={link.url} target="_blank" rel='noopener noreferrer'>{link.title}</BubbleLink>
                             </li>
                         ))}
                     </ul>

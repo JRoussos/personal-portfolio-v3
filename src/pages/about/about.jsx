@@ -54,7 +54,10 @@ const About = () => {
                                         <BubbleLink 
                                             key={profile.name} 
                                             title={profile.handle} 
-                                            href={profile.url} >{profile.title}</BubbleLink>
+                                            href={profile.url} 
+                                            target="_blank" 
+                                            rel='noopener noreferrer'
+                                        >{profile.title}</BubbleLink>
                                     ))}
                                 </div>
                             </div>
